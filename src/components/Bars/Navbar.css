@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+:root{
+    --dark-background:#121212;
+    --secondary:hsla(0, 0%, 100%, 0.08);
+    --bordercolor:hsl(0, 0%, 18.82%);
+    --iconh:30px;
+    ---iconw:30px;
+    --bordercolorbutton:hsl(0, 0%, 18.82%);
+}
+input[type="text"] {
+    outline: none
+  }
+  button{
+    outline:none;
+  }
+  
+nav{
+    position: fixed;
+    z-index: 1;
+    background:var(--dark-background);
+    width:100%;
+    height:56px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Roboto', sans-serif;
+
+}
+.start{
+    display: flex;
+    flex-direction: row;
+align-items:center;
+gap:20px;
+padding-left: 28px;
+}
+
+.hamburgermenu{
+height:var(--iconh);
+width:var(--iconw);
+color:white;
+}
+.ytlogo{
+   height:20px;
+   width:auto;
+   cursor:pointer;
+}
+.mid{
+    display: flex;
+    flex-direction: row;
+align-items:center;
+width: 56%;
+}
+.searchbar{
+    outline:none;
+    height: 38px;
+    color: var(--bordercolor);
+    width: 72%;
+    border-radius: 40px 0 0 40px;
+    background-color: transparent;
+    /* margin-left: 32px; */
+    padding: 0px 4px 0px 16px;
+    /* box-shadow: 0 0 0 0; */
+    border: 1px solid var(--secondary);
+    font-size: 16px;
+    color: white;
+}
+.searchbutton{
+    outline:none;
+    border-radius: 0 40px 40px 0;
+background-color:var(--secondary);
+cursor: pointer;
+height: 40px;
+width: 64px;
+margin: 0;
+border:1 px solid var(--bordercolor);
+}
+.last{
+    display: flex;
+    flex-direction: row;
+align-items:center;
+padding-right: 22px;
+gap: 14px;
+}
+.signindiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-inline: 12px;
+    padding-block: 5px;
+    color: #3ea6ff;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1px solid hsl(0deg 0% 100% / 16%);
+    border-radius: 23px;
+    gap: 8px;
+}
+.loggedindiv{
+    display: flex;
+    flex-direction: row;
+align-items:center;
+gap:30px;
+padding-right: 17px;
+}
