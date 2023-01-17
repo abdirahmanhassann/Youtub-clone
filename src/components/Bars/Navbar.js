@@ -9,12 +9,17 @@ import ytlogowhite from '../../photos/ytlogowhite.png'
 import { Link } from 'react-router-dom';
 import { addby } from '../../redux/reducers/index';
 import { useDispatch, useSelector } from 'react-redux';
+
+
+
 export default function Navbar() {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [login,setlogin]=useState(false)
   const [query,setquery]=useState('')
   const [buttonClicked, setButtonClicked] = useState(false);
+
+
   const dispatch = useDispatch();
   const reduxquery= useSelector((state)=>state.search);
   const iconstyle={
@@ -27,29 +32,50 @@ export default function Navbar() {
   const apikey1='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
 const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
 
-  
+
   return (
     <nav>
       <div className='start'>
 <RxHamburgerMenu className='hamburgermenu' style={iconstyle}/>
-<img src={ytlogowhite} className='ytlogo'/>
+<Link to='/' >
+<img src={ytlogowhite} className='ytlogo' />
+</Link>
+
 </div>
 
 <div className='mid'>
 <input type='text' placeholder='Search' className='searchbar' onChange={(e)=>{
   setquery(e.target.value)
   console.log(query)
-}}/>
-<Link onClick={()=>{
-  dispatch(addby(query))
-  console.log(reduxquery)
+}}
+onKeyPress={(event)=>{
+    if (event.key === 'Enter') {
+
+  <Link onClick={()=>{
+    dispatch(addby(query))
+    console.log(reduxquery)
   }} 
-  to={`/SearchPage/:${query}`} 
-  style={{style:'none',textDecorationLine:'none',margin:'0'}} className='link'>
-<button className='searchbutton'>
+  to={`/SearchPage/:${query}`}
+  style={{style:'none',textDecorationLine:'none',margin:'0'}} className='link'
+
+  ></Link>
+
+}}}
+/>
+<Link onClick={()=>{
+      dispatch(addby(query))
+      console.log(reduxquery)
+    }} 
+    to={`/SearchPage/:${query}`}
+      style={{style:'none',textDecorationLine:'none',margin:'0'}} className='link'
+    
+      >
+    
+        <button className='searchbutton'  >
   <BsSearch style={{height:'19px',color:'white',width:'fit-content'}}/>
 </button>
-  </Link>
+
+      </Link>
 </div>
 
 <div className='last'>

@@ -21,10 +21,10 @@ const [comments,setcomments]=useState();
 const [makeAComment,setmakeAComment]=useState()
 const [suggestedVideos, setSuggestedVideos] = useState();
 const [itemz,setitemz]=useState(location.state.item);
-const[item,setitem]=useState()
+const[item,setitem]=useState(location.state.itemm)
 const [bool,setbool]=useState(false);
-const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+const apikey1='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
   function onPlayerReady(event) {
     event.target.playVideo();
 

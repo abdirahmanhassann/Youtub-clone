@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+.largestdiv2{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    height:fit-content;
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    
+}
+
+.largediv2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: auto;
+    background-color: #121212;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 12%;
+    padding-top: 100px;
+    gap: 14px;
+}
+
+.suggestedvids2{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    cursor: pointer;
+}
+
+
+.subsuggestedvids2{
+    display:flex;
+    flex-direction:column;
+gap:5px;
+}
+.thumbnails2{
+    border-radius: 9px;
+    object-fit: cover;
+    height: 197px;
+    width: 352px;
+}
+
+.videoheadeer2{
+    font-weight: 400;
+    font-size: 17px;
+    width: 90%;
+    object-fit: fill;
+}
+
+.subcount3{
+    font-size: 11px;
+    color: #a5a5a5;
+    
+}
+.cell2{
+    height: 150px;
+}
+  .link2{
+    text-decoration-line: none;
+    color:white;
+
+    /* margin: 5px; */
+  }
