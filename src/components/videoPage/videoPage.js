@@ -8,8 +8,10 @@ import {AiOutlineLike} from 'react-icons/ai'
 import {AiOutlineDislike} from 'react-icons/ai'
 import {RiShareForwardLine} from 'react-icons/ri'
 import {BsThreeDots} from 'react-icons/bs'
+import {MdOutlineDownloadForOffline} from 'react-icons/md'
 import { NumericFormat } from 'react-number-format';
 import TimeAgo from 'react-timeago';
+import ytlogo from '../../photos/ytlogo.png'
 import signedoutprofilepic from '../../photos/ytprofilepic.jpg'
 export default function VideoPage(props) {
   const location=useLocation();
@@ -23,8 +25,12 @@ const [suggestedVideos, setSuggestedVideos] = useState();
 const [itemz,setitemz]=useState(location.state.item);
 const[item,setitem]=useState(location.state.itemm)
 const [bool,setbool]=useState(false);
-const apikey1='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+const [downloadbutton,setdownloadbutton]=useState(false);
+const [selectedOption, setSelectedOption] = useState('');
+const [selectedquality, setSelectedquality] = useState('');
+const [downloadapi,setdownloadapi]=useState();
+const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
   function onPlayerReady(event) {
     event.target.playVideo();
 
@@ -67,68 +73,168 @@ fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoI
   console.log(r)
   });
   
-},[]);
+},[, bool]);
 
-useEffect(() => {
-  async function po (){
+// useEffect(() => {
+//   async function po (){
 
-    if(item !=null){
-   await   fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${item.id.videoId}&key=${apikey2}`)
-        .then((response) => response.json())
-        .then((response) => {
-          setitemz(response)
-          console.log(response);
-          console.log('first api call')
-        })
+//     if(item !=null){
+//    await   fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${item.id.videoId}&key=${apikey2}`)
+//         .then((response) => response.json())
+//         .then((response) => {
+//           setitemz(response)
+//           console.log(response);
+//           console.log('first api call')
+//         })
        
-       await  fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${item.snippet.channelId }&key=${apikey2}`)
-            .then(response => response.json())
-            .then(response => {
-              setChannelData(response); 
-              console.log(channelData)
-            })
+//        await  fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${item.snippet.channelId }&key=${apikey2}`)
+//             .then(response => response.json())
+//             .then(response => {
+//               setChannelData(response); 
+//               console.log(channelData)
+//             })
             
-            await  fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${ item.snippet.channelId }&key=${apikey2}`)
-                .then(res => res.json())
-                .then(res => {
-                  setChannelstats(res);
-                  console.log(channelstats)
-                  })
+//             await  fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${ item.snippet.channelId }&key=${apikey2}`)
+//                 .then(res => res.json())
+//                 .then(res => {
+//                   setChannelstats(res);
+//                   console.log(channelstats)
+//                   })
               
-               await  fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${ item.id.videoId }&key=${apikey2}`)
-                  .then(r => r.json())
-                  .then(r => {
-                  setvideostats(r)
-                  console.log(videostats)
-                  })
+//                await  fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${ item.id.videoId }&key=${apikey2}`)
+//                   .then(r => r.json())
+//                   .then(r => {
+//                   setvideostats(r)
+//                   console.log(videostats)
+//                   })
                 
-                await  fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${item.id.videoId}&key=${apikey2}`)
-                  .then(r => r.json())
-                  .then(r => {
-                  setcomments(r);
-                  console.log(r)
-                  })
-                  fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${item ?item.id.videoId : itemz.id}&type=video&maxResults=20&key=${apikey2}`)
-  .then((r) => r.json())
-  .then((r) =>{ 
-    setSuggestedVideos(r)
-  console.log(r)
-  });
+//                 await  fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${item.id.videoId}&key=${apikey2}`)
+//                   .then(r => r.json())
+//                   .then(r => {
+//                   setcomments(r);
+//                   console.log(r)
+//                   })
+//                   fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${item ?item.id.videoId : itemz.id}&type=video&maxResults=20&key=${apikey2}`)
+//   .then((r) => r.json())
+//   .then((r) =>{ 
+//     setSuggestedVideos(r)
+//   console.log(r)
+//   });
 
-                  }
-                   else {
-                  console.log('does not exist')
-                  }
+//                   }
+//                    else {
+//                   console.log('does not exist')
+//                   }
                 
-                }  
-                po()   
-                  }, [bool])
+//                 }  
+//                 po()   
+//                   }, [ bool])
                   
+function modal(){
+setdownloadbutton(true)
+
+}
+
+const handleChange = (event) => {
+  setSelectedOption(event.target.value);
+  console.log(selectedOption) 
+if (selectedOption==='option1'){
+  setSelectedquality('option1') 
+}
+else if(selectedOption==='option2'){
+  setSelectedquality('option2')
+  
+}
+else if (selectedOption==='option3'){
+  setSelectedquality('option3')
+}
+else{
+selectedquality=null;
+}
+
+}
+
+const downloadvideo=()=>{
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': 'a8f51f3f0emsh0776f217a544603p158b49jsn947a18196a1d',
+      'X-RapidAPI-Host': 'ytstream-download-youtube-videos.p.rapidapi.com'
+    }
+  };
+  
+  fetch(`https://ytstream-download-youtube-videos.p.rapidapi.com/dl?id=${item ? item.id.videoId : itemz.id}`, options)
+    .then(response => response.json())
+    .then(response =>setdownloadapi(response) )
+    .catch(err => console.error(err));  
+
+
+    if (selectedquality==='option1'){
+    window.open(downloadapi.formats[0].url)
+  }
+  else if(selectedquality==='option2'){
+    window.open(downloadapi.formats[1].url)
+  }
+  else if (selectedquality==='option3'){
+    window.open(downloadapi.formats[2].url)
+  }
+
+  else{
+  return(
+    <p>Please select a a quality</p>
+  )
+  }
+  
+}
 return (
     <>
     <Navbar/>
     <div className='largediv'>
 <div className='primary'>
+  {
+    downloadbutton &&
+<div className='modal'>
+  <div className='modalheader'>
+<img src={ytlogo} className='ytlogomodal'/>
+  </div>
+  <h2 className='modaldownload'>Download video</h2>
+    <div className='downloadvidlink'>
+    <input
+        type="radio"
+        name="options"
+        value="option1"
+        checked={selectedOption === 'option1'}
+        onChange={handleChange}
+      />    
+       <p>Low - 144p</p>
+       </div>
+    <div className='downloadvidlink'>
+    <input
+        type="radio"
+        name="options"
+        value="option2"
+        checked={selectedOption === 'option2'}
+        onChange={handleChange}
+      />  
+      <p>Medium - 360p</p>
+    </div>
+    <div className='downloadvidlink'>
+    <input
+        type="radio"
+        name="options"
+        value="option3"
+        checked={selectedOption === 'option3'}
+        onChange={handleChange}
+      />    
+       <p>HD - 720p</p>
+    </div>
+<div className='modalfooter'>
+<button className='modalbutton'>Cancel</button>
+<button className='modalbutton' onClick={downloadvideo}>OK</button>
+</div>
+    </div>
+
+  }
 <YouTube
   videoId={ item ? item.id.videoId : itemz.id}
   opts={{
@@ -162,6 +268,9 @@ channelData && channelstats &&videostats &&comments ?
 <button className='subscribeButton'>subscribe</button>
 </div>
 <div className='vidbuttons'>
+  <button className='dots' onClick={modal}>
+  <MdOutlineDownloadForOffline style={{height:'23px',width:'23px', color:'white',marginTop:'2px'}}/>
+  </button>
 <div className='likediv'>
   <button className='likebutton'> <AiOutlineLike style={{height:'23px',width:'23px', color:'white'}}/></button>
   <button className='dislikebutton'> <AiOutlineDislike style={{height:'23px',width:'23px', color:'white'}}/></button>

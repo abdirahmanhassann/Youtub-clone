@@ -9,6 +9,7 @@
     background-color: #121212;
     color:white;
     font-family: 'Roboto', sans-serif;
+    gap:10px
 }
 .primary{
     margin-left: 5%;
@@ -131,8 +132,8 @@ align-items: center;
     font-weight: 600;
     border-radius: 18px;
     border: none;
-    padding-inline: 8px;
-
+    padding-inline: 7px;
+    cursor:pointer;
 }
 .viewpara{
     color:white;
@@ -296,4 +297,68 @@ gap:5px;
     font-size: 11px;
     color: #a5a5a5;
     margin-top: -13px;
+}
+
+.modal{
+    justify-content: center;
+    
+    align-items: self-start;
+    top: 59%;
+    left: 50%;
+    transform: translate(-50%, -51%);
+    position: fixed;
+    justify-self: center;
+    height: 378px;
+    width: 400px;
+    background-color: #191919;  
+    box-shadow: 0px 14px 20px 2px #000000;
+    display: flex;
+    flex-direction: column;
+   
+}
+.downloadvidlink{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modalheader{
+    margin-top: -100px;
+    text-align: center;
+    box-shadow: 1px -7px 15px 1px black;
+      height: 107px;
+    width: 100%;
+    background-color: white;
+    color: black;
+}
+.ytlogomodal{
+    height:100px;
+    width:auto;
+}
+.modaldownload{
+    align-self: center;
+}
+.modalfooter{
+    height: 57px;
+    width: 90%;
+    margin-left: 5%;
+    justify-content: center;
+    border-top: 1px solid #878787;
+    padding-top: 18px;
+    text-align-last: end;
+    margin-top: 14px;
+}
+.modalbutton{
+    border: none;
+    width: 60px;
+    text-align-last: center;
+    margin: 12px;
+    margin-top:10px;
+    color: white;
+    height: 43px;
+    padding-inline: 10px;
+    background-color: #3c3c3cc7;
+    border-radius: 2px;
+    cursor:pointer;
 }
