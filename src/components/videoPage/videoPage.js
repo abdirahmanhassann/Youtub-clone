@@ -335,6 +335,34 @@ share</div>
 
 
 }  
+
+</div>
+<div className='secondary'>
+{
+suggestedVideos&&
+suggestedVideos.items.map((video) => (
+        <div key={video.id.videoId} className='suggestedvids' onClick={()=>
+{        setitem(video)
+  console.log(item);
+setbool(i=>!i)
+window.scrollTo(0, 0);
+        }
+        }>
+          <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className='thumbnails' />
+          <div className= 'subsuggestedvids'>
+            {video.snippet.title.length > 50 ?
+          <h2 className='videoheadeer'>{video.snippet.title.slice(0,50)}...</h2>
+          : 
+          <h2 className='videoheadeer'>{video.snippet.title}</h2>
+            } 
+        <p className='subcount'>{video.snippet.channelTitle}</p>
+        <TimeAgo date={video.snippet.publishedAt} locale="en" className='subcount' />
+          </div>
+        </div>
+      ))}
+
+</div>
+    </div>
 <div className='commentsdiv'>
 <div className='makeAComment'>
   <img src={signedoutprofilepic} className='signedoutprofilepic'/>
@@ -369,7 +397,6 @@ comments.items.map((item)=>
   <AiOutlineDislike style={{height:'15px',width:'15px', color:'white'}}/>
 </div>
   </div>
-
 </div>
 </>
   )
@@ -379,33 +406,6 @@ comments.items.map((item)=>
 }
 </div>
 </div>
-</div>
-<div className='secondary'>
-{
-suggestedVideos&&
-suggestedVideos.items.map((video) => (
-        <div key={video.id.videoId} className='suggestedvids' onClick={()=>
-{        setitem(video)
-  console.log(item);
-setbool(i=>!i)
-window.scrollTo(0, 0);
-        }
-        }>
-          <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className='thumbnails' />
-          <div className= 'subsuggestedvids'>
-            {video.snippet.title.length > 50 ?
-          <h2 className='videoheadeer'>{video.snippet.title.slice(0,50)}...</h2>
-          : 
-          <h2 className='videoheadeer'>{video.snippet.title}</h2>
-            } 
-        <p className='subcount'>{video.snippet.channelTitle}</p>
-        <TimeAgo date={video.snippet.publishedAt} locale="en" className='subcount' />
-          </div>
-        </div>
-      ))}
-
-</div>
-    </div>
     </>
   )
 }

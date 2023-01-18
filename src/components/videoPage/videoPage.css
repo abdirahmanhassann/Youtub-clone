@@ -1,31 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .largediv{
-    display:flex;
-    flex-direction:row;
-    justify-content:center;
-    height:fit-content;
-    width:auto; 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: -moz-fit-content;
+    height: max-content;
+    width: auto;
     background-color: #121212;
-    color:white;
+    color: white;
     font-family: 'Roboto', sans-serif;
-    gap:10px
+    gap: 10px;
 }
 .primary{
-    margin-left: 5%;
-    flex-grow:1.5;
-display:flex;
-flex-direction:column;
-width: fit-content;
-align-items: center;
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+    width: -moz-fit-content;
+    width: fit-content;
+    align-items: center;
 }
 .secondary{
     margin-top: 84px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 88%;
-    gap: 5px;  
+    width: 28%;
+    gap: 5px;
 }
 .title{
     font-size: 19px;
@@ -200,9 +202,14 @@ align-items: center;
     height: fit-content;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 84%;
-    margin-top: 44px;
+    padding-top: 0px;
+    width: 30%;
+    margin-right: 0px;
+    margin-top: -2px;
+    background-color: #121212;
+    font-family: 'Roboto';
+    color: white;
+    width: 100%;
 }
 
 .makeAComment{
@@ -291,7 +298,8 @@ gap:5px;
 }
 .videoheadeer{
     font-size: 13px;
-        width: 229px;
+    width: 90%;
+    object-fit: fill;
 }
 .subcount2{
     font-size: 11px;
@@ -361,3 +369,23 @@ gap:5px;
     border-radius: 2px;
     cursor:pointer;
 }
+
+@media only screen and (min-width: 1235px) {
+    .commentsdiv {
+        margin-top: -1129px;
+        padding-top: 20px;
+    }
+    .comment{
+        width: 75%;
+    }
+
+  }
+  
+
+@media only screen and (min-width: 1076px) {
+    .primary {
+      margin-left: 0;
+    }
+    
+  }
+  
