@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './videoPage.css'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../Bars/Navbar';
@@ -29,6 +29,8 @@ const [downloadbutton,setdownloadbutton]=useState(false);
 const [selectedOption, setSelectedOption] = useState('');
 const [selectedquality, setSelectedquality] = useState('');
 const [downloadapi,setdownloadapi]=useState();
+const [buttonclicked, setbuttonclicked]=useState(false)
+const refOne= useRef(null)
 const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
 const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
   function onPlayerReady(event) {
@@ -73,7 +75,7 @@ fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoI
   console.log(r)
   });
   
-},[, bool]);
+},[bool]);
 
 // useEffect(() => {
 //   async function po (){
@@ -130,62 +132,82 @@ fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoI
 //                 po()   
 //                   }, [ bool])
                   
-function modal(){
-setdownloadbutton(true)
+// function modal(){
+// setdownloadbutton(true)
 
-}
+// }
 
 const handleChange = (event) => {
   setSelectedOption(event.target.value);
-  console.log(selectedOption) 
-if (selectedOption==='option1'){
-  setSelectedquality('option1') 
-}
-else if(selectedOption==='option2'){
-  setSelectedquality('option2')
-  
-}
-else if (selectedOption==='option3'){
-  setSelectedquality('option3')
-}
-else{
-selectedquality=null;
 }
 
-}
+useEffect(() => {
+  if (!selectedOption) return;
+  if (selectedOption === 'option1') {
+    setSelectedquality('option1');
+  } else if (selectedOption === 'option2') {
+    setSelectedquality('option2');
+  } else if (selectedOption === 'option3') {
+    setSelectedquality('option3');
+  } else {
+    setSelectedquality(null);
+  }
+}, [selectedOption]);
 
-const downloadvideo=()=>{
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': 'a8f51f3f0emsh0776f217a544603p158b49jsn947a18196a1d',
-      'X-RapidAPI-Host': 'ytstream-download-youtube-videos.p.rapidapi.com'
+
+
+useEffect(() => {
+  if (!buttonclicked) return;
+  async function fetchData() {
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '3080ae25famsh2a48333bf8619d4p118e5djsnbca874ca3480',
+        'X-RapidAPI-Host': 'ytstream-download-youtube-videos.p.rapidapi.com'
+      }
+    };
+    try {
+      const response = await fetch(`https://ytstream-download-youtube-videos.p.rapidapi.com/dl?id=${item ?item.id.videoId : itemz.id}`, options);
+      const data = await response.json();
+      const downloadapi = data;
+      if (selectedquality==='option1'){
+        window.open(downloadapi.formats[0].url)
+      }
+      else if(selectedquality==='option2'){
+        window.open(downloadapi.formats[1].url)
+      }
+      else if (selectedquality==='option3'){
+        window.open(downloadapi.formats[2].url)
+      }
+      
+      else{
+      return(
+        <p>Please select a a quality</p>
+      )
+      }
+      setbuttonclicked(false);
+    } catch (error) {
+      console.error(error);
     }
-  };
-  
-  fetch(`https://ytstream-download-youtube-videos.p.rapidapi.com/dl?id=${item ? item.id.videoId : itemz.id}`, options)
-    .then(response => response.json())
-    .then(response =>setdownloadapi(response) )
-    .catch(err => console.error(err));  
+  }
+  fetchData();
+}, [buttonclicked]);
 
+useEffect(()=>{
+  document.addEventListener('click',outsideclick,true)
+},[downloadbutton])
 
-    if (selectedquality==='option1'){
-    window.open(downloadapi.formats[0].url)
+const outsideclick=(e)=>{
+  if(!refOne.current.contains(e.target))
+  {
+setdownloadbutton(false)
   }
-  else if(selectedquality==='option2'){
-    window.open(downloadapi.formats[1].url)
+  else
+  {
+return null;
   }
-  else if (selectedquality==='option3'){
-    window.open(downloadapi.formats[2].url)
-  }
-
-  else{
-  return(
-    <p>Please select a a quality</p>
-  )
-  }
-  
 }
+
 return (
     <>
     <Navbar/>
@@ -193,7 +215,8 @@ return (
 <div className='primary'>
   {
     downloadbutton &&
-<div className='modal'>
+    
+<div className='modal' ref={refOne}>
   <div className='modalheader'>
 <img src={ytlogo} className='ytlogomodal'/>
   </div>
@@ -229,8 +252,8 @@ return (
        <p>HD - 720p</p>
     </div>
 <div className='modalfooter'>
-<button className='modalbutton'>Cancel</button>
-<button className='modalbutton' onClick={downloadvideo}>OK</button>
+<button className='modalbutton' onClick={()=>setdownloadbutton(false)}>Cancel</button>
+<button className='modalbutton' onClick={()=>setbuttonclicked(true)}>OK</button>
 </div>
     </div>
 
@@ -268,7 +291,7 @@ channelData && channelstats &&videostats &&comments ?
 <button className='subscribeButton'>subscribe</button>
 </div>
 <div className='vidbuttons'>
-  <button className='dots' onClick={modal}>
+  <button className='dots' onClick={()=>setdownloadbutton(true)}>
   <MdOutlineDownloadForOffline style={{height:'23px',width:'23px', color:'white',marginTop:'2px'}}/>
   </button>
 <div className='likediv'>
