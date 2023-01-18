@@ -12,6 +12,7 @@
     color: white;
     font-family: 'Roboto', sans-serif;
     gap: 10px;
+    padding-left: 6%;
 }
 .primary{
     display: flex;
@@ -151,6 +152,7 @@ align-items: center;
     background-color: #282828;
     width: 706px;
     border-radius: 7px;
+    margin-bottom: 0px;
 }
 .viewpara{
     display: flex;
@@ -203,12 +205,12 @@ align-items: center;
     display: flex;
     flex-direction: column;
     padding-top: 10px;
- 
     margin-right: 0px;
     margin-top: 0px;
     background-color: #121212;
     font-family: 'Roboto';
     color: white;
+    padding-left: 6%;
 }
 
 .makeAComment{
@@ -219,6 +221,17 @@ align-items: center;
     width: 84%;
     
 }
+
+.makeAComment1{
+    
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    width: 566px;
+    margin-right: 36%;
+}
+
 .signedoutprofilepic{
     height:40px;
     width:40px;
@@ -244,8 +257,11 @@ align-items: center;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 68%;
-    margin-top: 44px;   
+    width: 960px;
+    margin-top: 44px;
+    alignment-baseline: central;
+    margin-right: 20%;
+    object-fit: fill;
 }
 .commentdetails{
     display: flex;
@@ -370,20 +386,34 @@ gap:5px;
     cursor:pointer;
 }
 
+@media only screen and (min-width: 2035px) {
+
+.largediv{
+    padding-left:12%
+}
+.commentsdiv{
+    padding-left:9%;
+    width:80%;
+}
+}
+
 @media only screen and (min-width: 1235px) {
     .commentsdiv {
         margin-top: -1129px;
         padding-top: 20px;
         align-items: center;
-        width: 100%;
+        width: 91%;
 }
     
     .comment{
-        width: 75%;
+        width: 85%;
     }
+.descriptiondiv{
+    margin-bottom: 1143px;
+}
 
-  }
-  @media only screen and (max-width: 1234px) {
+}
+@media only screen and (max-width: 1234px) {
     .secondary {
       /* margin-top: 84px; */
       display: flex;
@@ -392,9 +422,27 @@ gap:5px;
       /* align-items: center; */
       width: 100%;
       gap: 17px;
-      margin-left:20%;
+      /* margin-left:20%; */
     }
-  }
+    .thumbnails{
+        height: 142px;
+    }
+    .videoheadeer{
+        font-size: 25px;
+        width: 90%;
+        object-fit: fill;
+    }
+    .subcount{
+        font-size:16px
+    }
+    .comments{
+        width: 100%;
+    }
+    .commentsdiv{
+        padding-top: 35px;
+
+    }
+}
   
 
 @media only screen and (min-width: 1076px) {

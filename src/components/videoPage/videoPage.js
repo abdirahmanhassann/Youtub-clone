@@ -364,7 +364,7 @@ window.scrollTo(0, 0);
 </div>
     </div>
 <div className='commentsdiv'>
-<div className='makeAComment'>
+<div className='makeAComment1'>
   <img src={signedoutprofilepic} className='signedoutprofilepic'/>
   <input placeholder='Add a comment...' value={makeAComment} onChange={(e)=>setmakeAComment(e.target.value )}
   className='commentinput' name='makeacomment' type="text"/>
