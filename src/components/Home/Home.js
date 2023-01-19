@@ -7,6 +7,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import HomeVids from "./HomeVids";
 
 export default function () {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+
+  })
   return (
     <>
       <Navbar/>

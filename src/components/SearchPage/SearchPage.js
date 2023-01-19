@@ -21,6 +21,7 @@ const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
  console.log(location.pathname.slice(13))
 useEffect(()=>{
     try {
+      window.scrollTo(0, 0);
       fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selector}&maxResults=25&type=video&key=${apikey1}`)
    .then(res=>res.json())  
 .then(res=>{
