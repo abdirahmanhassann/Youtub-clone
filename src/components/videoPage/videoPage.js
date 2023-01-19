@@ -331,7 +331,7 @@ share</div>
 }
 </div>
 </>
-:<p>loading</p>
+:<p style={{height:'50%'}}>loading</p>
 
 
 }  
@@ -402,7 +402,7 @@ comments.items.map((item)=>
   )
 })
 : 
-<p>loading comments</p>
+<p style={{height:'50%'}}>loading comments</p>
 }
 </div>
 </div>

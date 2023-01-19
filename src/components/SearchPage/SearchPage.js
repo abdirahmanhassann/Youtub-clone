@@ -82,7 +82,7 @@ console.log(item);
     ) 
     })
   :
-  <p>search results loading</p>
+  <p style={{height:'100%'}}>search results loading</p>
   }
   </div>
   </div>
