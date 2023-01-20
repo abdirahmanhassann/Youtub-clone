@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { legacy_createStore as createStore} from 'redux'
 import store from './redux/reducers/index';
-import {Provider, provider} from 'react-redux'; 
+import {Provider} from 'react-redux'; 
 
 
 

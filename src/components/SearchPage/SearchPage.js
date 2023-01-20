@@ -22,11 +22,11 @@ const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
 useEffect(()=>{
     try {
       window.scrollTo(0, 0);
-      fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selector}&maxResults=25&type=video&key=${apikey1}`)
+      fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selector.search}&maxResults=25&type=video&key=${apikey1}`)
    .then(res=>res.json())  
 .then(res=>{
  setitem(res);
-console.log(selector)
+console.log(selector.search)
 console.log(item);
 })
     
@@ -35,21 +35,6 @@ console.log(item);
     }
 },[ , selector])
 
-
-// useEffect(()=>{
-//     try {
-//       fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selector}&maxResults=25&type=video&key=${apikey1}`)
-//    .then(res=>res.json())  
-// .then(res=>{
-//  setitem(res);
-// console.log(selector)
-
-// })
-        
-//     } catch (error) {
-//       setError(error);
-//     }
-// },[selector])
 
   return (
     <>

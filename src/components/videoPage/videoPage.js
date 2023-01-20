@@ -13,26 +13,30 @@ import { NumericFormat } from 'react-number-format';
 import TimeAgo from 'react-timeago';
 import ytlogo from '../../photos/ytlogo.png'
 import signedoutprofilepic from '../../photos/ytprofilepic.jpg'
+import { Link } from 'react-router-dom';
+import { channelonclickreducer } from '../../redux/reducers/index';
 export default function VideoPage(props) {
   const location=useLocation();
-const [channelData,setChannelData]=useState();
-const [channelstats,setChannelstats]=useState();
-const [videostats,setvideostats]=useState();
-const [showdesc,setshowdesc]=useState(false);
-const [comments,setcomments]=useState();
-const [makeAComment,setmakeAComment]=useState()
-const [suggestedVideos, setSuggestedVideos] = useState();
-const [itemz,setitemz]=useState(location.state.item);
-const[item,setitem]=useState(location.state.itemm)
-const [bool,setbool]=useState(false);
-const [downloadbutton,setdownloadbutton]=useState(false);
-const [selectedOption, setSelectedOption] = useState('');
-const [selectedquality, setSelectedquality] = useState('');
-const [downloadapi,setdownloadapi]=useState();
-const [buttonclicked, setbuttonclicked]=useState(false)
-const refOne= useRef(null)
-const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+  const [channelData,setChannelData]=useState();
+  const [channelstats,setChannelstats]=useState();
+  const [videostats,setvideostats]=useState();
+  const [showdesc,setshowdesc]=useState(false);
+  const [comments,setcomments]=useState();
+  const [makeAComment,setmakeAComment]=useState()
+  const [suggestedVideos, setSuggestedVideos] = useState();
+  const [itemz,setitemz]=useState(location.state.item);
+  const[item,setitem]=useState(location.state.itemm)
+  const [bool,setbool]=useState(false);
+  const [downloadbutton,setdownloadbutton]=useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedquality, setSelectedquality] = useState('');
+  const [downloadapi,setdownloadapi]=useState();
+  const [buttonclicked, setbuttonclicked]=useState(false)
+  const refOne= useRef(null)
+  const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+  const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+
+  const dispatch=useDispatch();
   function onPlayerReady(event) {
     event.target.playVideo();
 
@@ -77,65 +81,6 @@ fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoI
   
 },[bool]);
 
-// useEffect(() => {
-//   async function po (){
-
-//     if(item !=null){
-//    await   fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${item.id.videoId}&key=${apikey2}`)
-//         .then((response) => response.json())
-//         .then((response) => {
-//           setitemz(response)
-//           console.log(response);
-//           console.log('first api call')
-//         })
-       
-//        await  fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${item.snippet.channelId }&key=${apikey2}`)
-//             .then(response => response.json())
-//             .then(response => {
-//               setChannelData(response); 
-//               console.log(channelData)
-//             })
-            
-//             await  fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${ item.snippet.channelId }&key=${apikey2}`)
-//                 .then(res => res.json())
-//                 .then(res => {
-//                   setChannelstats(res);
-//                   console.log(channelstats)
-//                   })
-              
-//                await  fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${ item.id.videoId }&key=${apikey2}`)
-//                   .then(r => r.json())
-//                   .then(r => {
-//                   setvideostats(r)
-//                   console.log(videostats)
-//                   })
-                
-//                 await  fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${item.id.videoId}&key=${apikey2}`)
-//                   .then(r => r.json())
-//                   .then(r => {
-//                   setcomments(r);
-//                   console.log(r)
-//                   })
-//                   fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${item ?item.id.videoId : itemz.id}&type=video&maxResults=20&key=${apikey2}`)
-//   .then((r) => r.json())
-//   .then((r) =>{ 
-//     setSuggestedVideos(r)
-//   console.log(r)
-//   });
-
-//                   }
-//                    else {
-//                   console.log('does not exist')
-//                   }
-                
-//                 }  
-//                 po()   
-//                   }, [ bool])
-                  
-// function modal(){
-// setdownloadbutton(true)
-
-// }
 
 const handleChange = (event) => {
   setSelectedOption(event.target.value);
@@ -278,7 +223,12 @@ channelData && channelstats &&videostats &&comments ?
   <div className='channelsub'>
 <img src={channelData.items[0].snippet.thumbnails.default.url} className='channelpic'/>
 <div className='channeltitlesubcount'>
+
+<Link
+onClick={()=>{dispatch(channelonclickreducer(channelData))}}
+to={`../ChannelPage/:${channelData.items[0].snippet.title}`}>
 <p className='channeltitle'>{channelData.items[0].snippet.title}</p>
+</Link>
  <NumericFormat 
       value={channelstats.items[0].statistics.subscriberCount} // The value to be formatted
       displayType="text" // The display type, can be "input" or "text"
@@ -399,10 +349,8 @@ comments.items.map((item)=>
   </div>
 </div>
 </>
-  )
-})
-: 
-<p style={{height:'50%'}}>loading comments</p>
+ )})
+ :  <p style={{height:'100%%'}}>loading comments</p>
 }
 </div>
 </div>
