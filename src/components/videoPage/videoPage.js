@@ -228,7 +228,9 @@ channelData && channelstats &&videostats &&comments ?
 
 <Link
 onClick={()=>{dispatch(channelonclickreducer(channelData))}}
-to={`../ChannelPage/:${channelData.items[0].snippet.title}`}>
+to={`../ChannelPage/:${channelData.items[0].snippet.title}`}
+style={{textDecorationLine:'none',color:'white'}}
+>
 <p className='channeltitle'>{channelData.items[0].snippet.title}</p>
 </Link>
  <NumericFormat 
