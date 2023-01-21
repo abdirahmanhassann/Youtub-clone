@@ -115,7 +115,9 @@ useEffect(() => {
       const response = await fetch(`https://ytstream-download-youtube-videos.p.rapidapi.com/dl?id=${item ?item.id.videoId : itemz.id}`, options);
       const data = await response.json();
       const downloadapi = data;
-      if (selectedquality==='option1'){
+      if (selectedquality==='option1')
+      
+      {
         window.open(downloadapi.formats[0].url)
       }
       else if(selectedquality==='option2'){
@@ -321,7 +323,7 @@ window.scrollTo(0, 0);
 </div>
 <div className='comments'>
 {
- comments&& comments.items.length>0?
+ comments && comments.items.length>0?
 comments.items.map((item)=>
 {
   const author=item.snippet.topLevelComment.snippet
@@ -350,7 +352,7 @@ comments.items.map((item)=>
 </div>
 </>
  )})
- :  <p style={{height:'100%%'}}>loading comments</p>
+ :  <p style={{height:'100%'}}>loading comments</p>
 }
 </div>
 </div>
