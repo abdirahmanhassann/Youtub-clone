@@ -4,7 +4,7 @@ import {RxHamburgerMenu} from 'react-icons/rx'
 import {BsSearch} from 'react-icons/bs'
 import {AiOutlineVideoCameraAdd,AiFillCopyrightCircle} from 'react-icons/ai'
 import {BsBell,BsThreeDotsVertical} from 'react-icons/bs'
-import {BiUserCircle} from 'react-icons/bi'
+import {BiUserCircle, BiArrowBack} from 'react-icons/bi'
 import ytlogowhite from '../../photos/ytlogowhite.png'
 import { Link } from 'react-router-dom';
 import { addby } from '../../redux/reducers/index';
@@ -18,7 +18,7 @@ export default function Navbar() {
   const [login,setlogin]=useState(false)
   const [query,setquery]=useState('')
   const [buttonClicked, setButtonClicked] = useState(false);
-
+const [searchbar,setsearchbar]=useState(true);
 
   const dispatch = useDispatch();
   const reduxquery= useSelector((state)=>state.search);
@@ -32,18 +32,18 @@ export default function Navbar() {
   const apikey1='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
 const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
 
-
   return (
     <nav>
+  {searchbar &&
       <div className='start'>
 <RxHamburgerMenu className='hamburgermenu' style={iconstyle}/>
 <Link to='/' >
 <img src={ytlogowhite} className='ytlogo' />
 </Link>
-
 </div>
+}
 
-<div className='mid'>
+<div className='mid' >
 <input type='text' placeholder='Search' className='searchbar' onChange={(e)=>{
   setquery(e.target.value)
   console.log(query)
@@ -77,8 +77,52 @@ onKeyPress={(event)=>{
 
       </Link>
 </div>
+{ searchbar ?
+<div className='mid2' onClick={()=>setsearchbar(false)}>
+  <BsSearch style={{height:'19px',color:'white',width:'fit-content'}}/>
+</div>
+: 
+<div className='mid3' >
 
-<div className='last'>
+  <BiArrowBack style={{height:'32px',color:'white',width:'fit-content',marginRight:'15px'}}  onClick={()=>setsearchbar(true)}/>
+
+<input type='text' placeholder='Search' className='searchbar' onChange={(e)=>{
+  setquery(e.target.value)
+  console.log(query)
+}}
+onKeyPress={(event)=>{
+    if (event.key === 'Enter') {
+
+  <Link onClick={()=>{
+    dispatch(addby(query))
+    console.log(reduxquery)
+  }} 
+  to={`/SearchPage/:${query}`}
+  style={{style:'none',textDecorationLine:'none',margin:'0'}} className='link'
+
+  ></Link>
+
+}}}
+/>
+<Link onClick={()=>{
+      dispatch(addby(query))
+      console.log(reduxquery)
+    }} 
+    to={`/SearchPage/:${query}`}
+      style={{style:'none',textDecorationLine:'none',margin:'0'}} className='link'
+    
+      >
+    
+        <button className='searchbutton'  >
+  <BsSearch style={{height:'19px',color:'white',width:'fit-content'}}/>
+</button>
+
+      </Link>
+</div>
+}
+
+{searchbar &&
+<div className='last' >
   {
     login?
     <div className='loggedindiv'>
@@ -96,6 +140,7 @@ Sign in
 </>
 }
 </div>
+}
     </nav>
   )
 }

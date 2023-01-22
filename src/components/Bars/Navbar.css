@@ -53,6 +53,14 @@ color:white;
 align-items:center;
 width: 56%;
 }
+.mid3{
+    display: flex;
+    flex-direction: row;
+align-items:center;
+width: 80%;
+margin:auto;
+
+}
 .searchbar{
     outline:none;
     height: 38px;
@@ -108,3 +116,34 @@ align-items:center;
 gap:30px;
 padding-right: 17px;
 }
+.mid2{
+display:none;
+}
+
+@media only screen and (max-width: 740px) {
+    .mid {
+      display:none
+    }
+ 
+    .mid2{
+        display:block;
+    }
+    .largediv2{
+        width: 99%;
+gap:10px;
+    }
+.thumbnails2{
+    height: 139px;
+    width: 254px;
+}
+.subsuggestedvids2{
+    gap:0px;
+}
+.videoheadeer2{
+    font-size: 15px;
+    height: 72px;
+    overflow: hidden;
+}
+}
+  
+  
