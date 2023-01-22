@@ -17,8 +17,8 @@ const dispatch= useDispatch();
   const recommendedvidss =useSelector(state=>state.recommendedvids);
   const watch =useSelector(state=>state.watch) 
   const videos=[]
-  const apikey1='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+  const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
 
   useEffect(() => {
       async function getRecommendations() {

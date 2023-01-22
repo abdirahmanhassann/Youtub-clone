@@ -83,12 +83,12 @@ flex-direction:column;
     flex-direction:column;
   }
 
-  .channeltitle{
+  .channeltitlelarge{
     font-size: 19px;
     font-weight: 600;
   }
-
-.subcount{
+  
+.subcountlarge{
   font-size: 14px;
   color: #a5a5a5;
   margin-top: -17px;
