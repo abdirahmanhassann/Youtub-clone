@@ -38,6 +38,30 @@ reducers:{
 }
     }
 )
+const accountslice=createSlice(
+    {
+        name:'account',
+        initialState:{},
+reducers:{
+    accountreducer :(state,action)=>{
+        return {...state, account: action.payload};
+    },
+  
+}
+}
+)
+const loginslice=createSlice(
+    {
+        name:'login',
+        initialState:false,
+reducers:{
+    loginslicereducer :(state,action)=>{
+        return {...state, login: action.payload};
+    },
+  
+}
+    }
+)
 
 const persistConfig={
     key:"root",
@@ -46,13 +70,17 @@ const persistConfig={
 };
 const reducer= combineReducers({
     channelonclick:channelslice.reducer,
-    search: searchslice.reducer
+    search: searchslice.reducer,
+    login:loginslice.reducer,
+    account:accountslice.reducer
 })
 const persistedReducer=persistReducer(persistConfig,reducer);
 
 
 export const {addby} =searchslice.actions;
 export const {channelonclickreducer}=channelslice.actions;
+export const {loginslicereducer}=loginslice.actions
+export const {accountreducer}=accountslice.actions
 const store=configureStore({
     reducer:{ 
                reducer:persistedReducer,

@@ -108,6 +108,7 @@ gap: 14px;
     border: 1px solid hsl(0deg 0% 100% / 16%);
     border-radius: 23px;
     gap: 8px;
+    cursor:pointer;
 }
 .loggedindiv{
     display: flex;
@@ -141,8 +142,8 @@ gap:10px;
 }
 .videoheadeer2{
     font-size: 15px;
-    height: 72px;
-    overflow: hidden;
+    height: 62px;
+        overflow: hidden;
 }
 }
   
