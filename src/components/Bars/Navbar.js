@@ -10,13 +10,17 @@ import { Link } from 'react-router-dom';
 import { accountreducer, addby } from '../../redux/reducers/index';
 import {loginslicereducer} from '../../redux/reducers/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { auth, prov } from '../../firebase';
+import { auth, db, prov } from '../../firebase';
 import { handleSignIn } from '../../youtubechanel';
 import { signInWithPopup } from 'firebase/auth';
 import {VscAccount} from 'react-icons/vsc'
+import 'firebase/firestore';
+import firebase from 'firebase/app';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+
 export default function Navbar() {
   const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
+  const [userinfo, setuserinfo] = useState();
   const [login,setlogin]=useState(false)
   const [query,setquery]=useState('')
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -166,14 +170,26 @@ dispatch(loginslicereducer(false))
 <div className='signindiv'onClick={()=>{
     signInWithPopup(auth, prov).then((res)=>{
       dispatch(accountreducer(res.user.photoURL))
+  setuserinfo(res.user.email)
       dispatch(loginslicereducer(true))
+      //console.log(res.user.email)
+      async function database(res){
+      const  usersCollectionRef=collection (db,'users')
+await addDoc(usersCollectionRef,{
+        email: res.user.email,
+        name: res.user.displayName,
+        photoURL: res.user.photoURL
+      })
+  
+    } 
+    database(res)
 
-      console.log(accountselector)
       //dispatch(accountreducer(res))
-    }).catch((err)=>{
+   
+  
+    .catch((err)=>{
       console.log(err)
-    })
-
+    })})
 }}>
 <VscAccount style={{height:'20px',width:'auto',color:' #3ea6ff',cursor:'pointer'}} />
 Sign in
