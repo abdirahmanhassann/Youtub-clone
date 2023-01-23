@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { auth, prov } from '../../firebase';
 import { handleSignIn } from '../../youtubechanel';
 import { signInWithPopup } from 'firebase/auth';
-
+import {VscAccount} from 'react-icons/vsc'
 export default function Navbar() {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
@@ -26,8 +26,8 @@ const [searchbar,setsearchbar]=useState(true);
   const reduxquery= useSelector((state)=>state.search);
   const accountselector=useSelector(state=>state.reducer.account);
   const iconstyle={
-    height:'24px',
-    width:'24px',
+    height:'21px',
+    width:'21px',
     color:'white',
     cursor:'pointer'
   }  
@@ -175,7 +175,7 @@ dispatch(loginslicereducer(false))
     })
 
 }}>
-<BiUserCircle style={{height:'24px',width:'auto',color:' #3ea6ff',cursor:'pointer'}} />
+<VscAccount style={{height:'20px',width:'auto',color:' #3ea6ff',cursor:'pointer'}} />
 Sign in
 </div>
 </>
