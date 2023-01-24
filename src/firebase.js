@@ -25,24 +25,24 @@ export const auth = getAuth(app);
 
 export const db= getFirestore(app)
 
-app.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // Create a new Firestore collection for the user
-    const userRef = db.collection('users').doc(user.uid);
-    userRef.set({
-      email: user.email,
-      name: user.displayName,
-      photoURL: user.photoURL
-    })
-    .then(() => {
-      console.log("User added to Firebase collection successfully");
-    })
-    .catch((error) => {
-      console.error("Error adding user to Firebase collection: ", error);
-    });
-  }
-});
+// app.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     // Create a new Firestore collection for the user
+//     const userRef = db.collection('users').doc(user.uid);
+//     userRef.set({
+//       email: user.email,
+//       name: user.displayName,
+//       photoURL: user.photoURL
+//     })
+//     .then(() => {
+//       console.log("User added to Firebase collection successfully");
+//     })
+//     .catch((error) => {
+//       console.error("Error adding user to Firebase collection: ", error);
+//     });
+//   }
+// });
 
 
 
-//export default firebase.auth()
+// //export default firebase.auth()

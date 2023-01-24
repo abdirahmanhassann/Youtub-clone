@@ -16,7 +16,7 @@ import { signInWithPopup } from 'firebase/auth';
 import {VscAccount} from 'react-icons/vsc'
 import 'firebase/firestore';
 import firebase from 'firebase/app';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 
 export default function Navbar() {
   const [response, setResponse] = useState(null);
@@ -173,15 +173,30 @@ dispatch(loginslicereducer(false))
   setuserinfo(res.user.email)
       dispatch(loginslicereducer(true))
       //console.log(res.user.email)
+      
       async function database(res){
       const  usersCollectionRef=collection (db,'users')
-await addDoc(usersCollectionRef,{
+     const po=  await getDocs(usersCollectionRef)
+     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+   await  console.log(userss);
+   const check= userss.find(i=>i.email==res.user.email)
+     if (check) {
+     
+       console.log('already exists')
+       console.log(check, res.user.email)
+       return null;
+      
+    }
+    else { 
+      addDoc(usersCollectionRef,{
         email: res.user.email,
         name: res.user.displayName,
         photoURL: res.user.photoURL
       })
-  
-    } 
+      console.log('ggg')
+    }
+    await console.log(res.user.email)
+  } 
     database(res)
 
       //dispatch(accountreducer(res))
