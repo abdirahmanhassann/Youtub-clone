@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, useRef } from 'react'
 import './Navbar.css';
 import {RxHamburgerMenu} from 'react-icons/rx'
 import {BsSearch} from 'react-icons/bs'
@@ -7,7 +7,7 @@ import {BsBell,BsThreeDotsVertical} from 'react-icons/bs'
 import {BiUserCircle, BiArrowBack} from 'react-icons/bi'
 import ytlogowhite from '../../photos/ytlogowhite.png'
 import { Link } from 'react-router-dom';
-import { accountreducer, addby } from '../../redux/reducers/index';
+import { accountreducer, addby, emailreducer } from '../../redux/reducers/index';
 import {loginslicereducer} from '../../redux/reducers/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth, db, prov } from '../../firebase';
@@ -17,7 +17,7 @@ import {VscAccount} from 'react-icons/vsc'
 import 'firebase/firestore';
 import firebase from 'firebase/app';
 import { addDoc, collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
-
+import Drawer from 'react-modern-drawer'
 export default function Navbar() {
   const [response, setResponse] = useState(null);
   const [userinfo, setuserinfo] = useState();
@@ -29,6 +29,28 @@ const [searchbar,setsearchbar]=useState(true);
   const loginselector=useSelector(state=>state.reducer.login)
   const reduxquery= useSelector((state)=>state.search);
   const accountselector=useSelector(state=>state.reducer.account);
+  const emailselector=useSelector(state=>state.reducer.email);
+  
+  const [isclicked,setisclicked]=useState(false);
+
+  const toggleDrawer = () => {
+    setisclicked((prevState) => !prevState)
+}
+useEffect(()=>{
+  document.addEventListener('click',outsideclick,true)
+},[isclicked])
+
+  const refOne= useRef(null);
+  const outsideclick=(e)=>{
+    if(!refOne.current.contains(e.target))
+    {
+  setisclicked(false)
+    }
+    else
+    {
+  return null;
+    }
+  }
   const iconstyle={
     height:'21px',
     width:'21px',
@@ -66,7 +88,13 @@ const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
     <nav>
   {searchbar &&
       <div className='start'>
-<RxHamburgerMenu className='hamburgermenu' style={iconstyle}/>
+ <RxHamburgerMenu className='hamburgermenu' onClick={toggleDrawer}>
+ </RxHamburgerMenu>
+ {isclicked &&
+ <div className='drawer' ref={refOne} >
+  
+ </div>
+}
 <Link to='/' >
 <img src={ytlogowhite} className='ytlogo' />
 </Link>
@@ -108,7 +136,7 @@ onKeyPress={(event)=>{
       </Link>
 </div>
 { searchbar ?
-<div className='mid2' onClick={()=>setsearchbar(false)}>
+<div className='mid2'  onClick={()=>setsearchbar(false)}>
   <BsSearch style={{height:'19px',color:'white',width:'fit-content'}}/>
 </div>
 :
@@ -162,6 +190,7 @@ onKeyPress={(event)=>{
 
 dispatch(accountreducer(null))
 dispatch(loginslicereducer(false))
+dispatch(emailreducer(null))
 }}/>
 </div>
 :
@@ -172,6 +201,8 @@ dispatch(loginslicereducer(false))
       dispatch(accountreducer(res.user.photoURL))
   setuserinfo(res.user.email)
       dispatch(loginslicereducer(true))
+      dispatch(emailreducer(res.user.email))
+      console.log(emailselector)
       //console.log(res.user.email)
       
       async function database(res){

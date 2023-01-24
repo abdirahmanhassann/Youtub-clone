@@ -41,6 +41,7 @@ padding-left: 28px;
 height:var(--iconh);
 width:var(--iconw);
 color:white;
+cursor:pointer;
 }
 .ytlogo{
    height:20px;
@@ -120,8 +121,40 @@ padding-right: 17px;
 .mid2{
 display:none;
 }
+/* Keyframes for slide-in animation */
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+  
+  /* Keyframes for slide-out animation */
+  @keyframes slideOut {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+  
+  /* Styles for the sidebar element */
+  .drawer {
+    position: fixed;
+    top: 0px;
+    left: 129px;
+    width: 129px;
+    height: 192vh;
+    background: #212121;
+    /* z-index: unset; */
+    transform: translateX(-100%);
+}
+  /* Styles for slide-in animation */
+  .drawer.slideIn {
+    animation: slideIn 1s ease-in-out;
+  }
+  
+  /* Styles for slide-out animation */
+  .drawer.slideOut {
+    animation: slideOut 1s ease-in-out;
+  }
 
-@media only screen and (max-width: 740px) {
+  @media only screen and (max-width: 740px) {
     .mid {
       display:none
     }
@@ -146,5 +179,4 @@ gap:10px;
         overflow: hidden;
 }
 }
-  
   

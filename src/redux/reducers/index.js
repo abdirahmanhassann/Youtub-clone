@@ -50,6 +50,18 @@ reducers:{
 }
 }
 )
+const emailslice=createSlice(
+    {
+        name:'email',
+        initialState:'',
+reducers:{
+    emailreducer :(state,action)=>{
+        return {...state, email: action.payload};
+    },
+  
+}
+}
+)
 const loginslice=createSlice(
     {
         name:'login',
@@ -72,7 +84,8 @@ const reducer= combineReducers({
     channelonclick:channelslice.reducer,
     search: searchslice.reducer,
     login:loginslice.reducer,
-    account:accountslice.reducer
+    account:accountslice.reducer,
+    email:emailslice.reducer
 })
 const persistedReducer=persistReducer(persistConfig,reducer);
 
@@ -81,6 +94,7 @@ export const {addby} =searchslice.actions;
 export const {channelonclickreducer}=channelslice.actions;
 export const {loginslicereducer}=loginslice.actions
 export const {accountreducer}=accountslice.actions
+export const {emailreducer}=emailslice.actions
 const store=configureStore({
     reducer:{ 
                reducer:persistedReducer,
