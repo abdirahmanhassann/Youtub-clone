@@ -1,4 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+body::-webkit-scrollbar{
+  width:0.40rem
+}
+body::-webkit-scrollbar-track{
+background:black
+}
+body::-webkit-scrollbar-thumb{
+background:red;
+border-radius:15px
+}
 
 .home{
     background-color: #121212;

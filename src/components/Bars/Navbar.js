@@ -1,8 +1,8 @@
 import React, { useState,useEffect, useRef } from 'react'
 import './Navbar.css';
 import {RxHamburgerMenu} from 'react-icons/rx'
-import {BsSearch} from 'react-icons/bs'
-import {AiOutlineVideoCameraAdd,AiFillCopyrightCircle} from 'react-icons/ai'
+import {BsPlay, BsSearch} from 'react-icons/bs'
+import {AiOutlineVideoCameraAdd,AiFillCopyrightCircle, AiFillHome} from 'react-icons/ai'
 import {BsBell,BsThreeDotsVertical} from 'react-icons/bs'
 import {BiUserCircle, BiArrowBack} from 'react-icons/bi'
 import ytlogowhite from '../../photos/ytlogowhite.png'
@@ -18,6 +18,7 @@ import 'firebase/firestore';
 import firebase from 'firebase/app';
 import { addDoc, collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 import Drawer from 'react-modern-drawer'
+import { MdOutlineSubscriptions, MdOutlineVideoLibrary } from 'react-icons/md';
 export default function Navbar() {
   const [response, setResponse] = useState(null);
   const [userinfo, setuserinfo] = useState();
@@ -38,6 +39,16 @@ const [searchbar,setsearchbar]=useState(true);
 }
 useEffect(()=>{
   document.addEventListener('click',outsideclick,true)
+  // if(isclicked){
+  //   document.body.style.opacity = '65%';
+  //   document.body.style.background = 'rgb(0 0 0)';
+    
+  // }
+  // else{
+  //   document.body.style.opacity = '100%';
+  //   document.body.style.background = 'initial';
+    
+  // }
 },[isclicked])
 
   const refOne= useRef(null);
@@ -45,9 +56,11 @@ useEffect(()=>{
     if(!refOne.current.contains(e.target))
     {
   setisclicked(false)
+
     }
     else
     {
+      
   return null;
     }
   }
@@ -82,19 +95,47 @@ const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
 // }
 // signgz
 // )
-
+const iconstyle2={
+  height:'25px',
+  width:'25px',
+  color:'white',
+  cursor:'pointer'
+}  
 
  return (
+  <>   
+  {
+        isclicked &&
+        <div className='fullscreen'>
+
+      <div className='drawer' ref={refOne} >
+     <div className='homediv2'>
+<AiFillHome  style={iconstyle2}/>
+Home
+</div>
+<div className='shortsdiv2'>
+<BsPlay style={iconstyle2}/>
+Shorts
+</div>
+<div className='subscriptions2'>
+<MdOutlineSubscriptions style={iconstyle2}/>
+Subscriptions
+</div>
+<div className='library2'>
+<MdOutlineVideoLibrary style={iconstyle2}/>
+Library
+</div>
+</div>
+<div className='restofscreen'>
+
+</div>
+      </div>
+     }
     <nav>
   {searchbar &&
       <div className='start'>
  <RxHamburgerMenu className='hamburgermenu' onClick={toggleDrawer}>
  </RxHamburgerMenu>
- {isclicked &&
- <div className='drawer' ref={refOne} >
-  
- </div>
-}
 <Link to='/' >
 <img src={ytlogowhite} className='ytlogo' />
 </Link>
@@ -245,6 +286,8 @@ Sign in
 </div>
 }
     </nav>
+    </>
   )
+
 }
 

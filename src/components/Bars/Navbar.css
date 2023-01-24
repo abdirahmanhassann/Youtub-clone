@@ -9,6 +9,17 @@
     ---iconw:30px;
     --bordercolorbutton:hsl(0, 0%, 18.82%);
 }
+
+body::-webkit-scrollbar{
+    width:0.25rem
+}
+body::-webkit-scrollbar-track{
+background:black
+}
+body::-webkit-scrollbar-thumb{
+background:red
+}
+
 input[type="text"] {
     outline: none
   }
@@ -133,26 +144,82 @@ display:none;
     to { transform: translateX(-100%); }
   }
   
+
+  .fullscreen{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 99vw;
+    height: 100vh;
+  }
+.restofscreen{
+    position: fixed;
+    width: 100%;
+
+    height: 101%;
+    opacity:65%;
+    background :rgb(0 0 0);
+}
+
+
   /* Styles for the sidebar element */
   .drawer {
     position: fixed;
     top: 0px;
     left: 129px;
-    width: 129px;
-    height: 192vh;
-    background: #212121;
-    /* z-index: unset; */
-    transform: translateX(-100%);
+    width: 113%;
+    height: 100vh;
+    background: #1e1e1e;
+    z-index: 2;
+    -webkit-transition: left 1s cubic-bezier(1, 0.04, 0, 1.02);
+    transform: translateX(-94%);
+    opacity: 100%;
+    box-shadow: 1px 0px 20px 1px #000000;
+    display: flex;
+    flex-direction: column;
+    gap: 39px;
+    align-items: flex-end;
+    padding-right: 108px;
+    color: white;
 }
+
   /* Styles for slide-in animation */
-  .drawer.slideIn {
+  /* .drawer.slideIn {
     animation: slideIn 1s ease-in-out;
   }
   
-  /* Styles for slide-out animation */
+  Styles for slide-out animation
   .drawer.slideOut {
     animation: slideOut 1s ease-in-out;
-  }
+  } */
+
+  .homediv2{
+    display:flex;
+    flex-direction:row;
+    gap:7px;
+    padding-top: 22px;
+    cursor:pointer;
+}
+.shortsdiv2{
+    display:flex;
+    flex-direction:row;
+    gap:7px;
+    cursor:pointer;
+}
+.subscriptions2{
+    display:flex;
+    flex-direction:row;
+    gap:7px;
+    margin-right: -46px;
+    cursor:pointer;
+}
+.library2{
+    display:flex;
+    flex-direction:row;
+    gap:7px;
+    cursor:pointer;
+}
+
 
   @media only screen and (max-width: 740px) {
     .mid {
