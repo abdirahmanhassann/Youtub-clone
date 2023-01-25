@@ -1,7 +1,7 @@
 import React, { useState,useEffect, useRef } from 'react'
 import './Navbar.css';
 import {RxHamburgerMenu} from 'react-icons/rx'
-import {BsPlay, BsSearch} from 'react-icons/bs'
+import {BsFillHandThumbsUpFill, BsHandThumbsUp, BsPlay, BsSearch} from 'react-icons/bs'
 import {AiOutlineVideoCameraAdd,AiFillCopyrightCircle, AiFillHome} from 'react-icons/ai'
 import {BsBell,BsThreeDotsVertical} from 'react-icons/bs'
 import {BiUserCircle, BiArrowBack} from 'react-icons/bi'
@@ -114,7 +114,7 @@ const iconstyle2={
 Home
 </div>
 <div className='shortsdiv2'>
-<BsPlay style={iconstyle2}/>
+<BsHandThumbsUp  style={iconstyle2}/>
 Shorts
 </div>
 <div className='subscriptions2'>
@@ -127,6 +127,7 @@ Library
 </div>
 </div>
 <div className='restofscreen'>
+
 
 </div>
       </div>

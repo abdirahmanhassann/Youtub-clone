@@ -155,10 +155,10 @@ display:none;
 .restofscreen{
     position: fixed;
     width: 100%;
-
     height: 101%;
     opacity:65%;
     background :rgb(0 0 0);
+    z-index: 2;
 }
 
 
@@ -170,7 +170,7 @@ display:none;
     width: 113%;
     height: 100vh;
     background: #1e1e1e;
-    z-index: 2;
+    z-index: 3;
     -webkit-transition: left 1s cubic-bezier(1, 0.04, 0, 1.02);
     transform: translateX(-94%);
     opacity: 100%;
@@ -181,6 +181,9 @@ display:none;
     align-items: flex-end;
     padding-right: 108px;
     color: white;
+    padding-top:20px;
+    font-weight: 400;
+    font-size: large;
 }
 
   /* Styles for slide-in animation */
@@ -196,27 +199,27 @@ display:none;
   .homediv2{
     display:flex;
     flex-direction:row;
-    gap:7px;
+    gap:27px;
     padding-top: 22px;
     cursor:pointer;
 }
 .shortsdiv2{
     display:flex;
     flex-direction:row;
-    gap:7px;
+    gap:27px;
     cursor:pointer;
 }
 .subscriptions2{
     display:flex;
     flex-direction:row;
-    gap:7px;
-    margin-right: -46px;
-    cursor:pointer;
+    gap:27px;
+    margin-right: -54px;
+        cursor:pointer;
 }
 .library2{
     display:flex;
     flex-direction:row;
-    gap:7px;
+    gap:27px;
     cursor:pointer;
 }
 

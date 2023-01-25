@@ -192,6 +192,8 @@ align-items: center;
     cursor: pointer;
     box-shadow: rgb(40 40 40) -6px -1px 20px 13px;
     font-weight: 700;
+    padding-left: 47px;
+    margin-bottom: 29px;
 }
 .descriptiondiv:hover{
     background-color: #212121;
@@ -237,8 +239,9 @@ align-items: center;
     height:40px;
     width:40px;
     border-radius:25px;
-    
+
 }
+
   button{
     outline:none;
   }

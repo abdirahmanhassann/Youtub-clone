@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 body::-webkit-scrollbar{
-  width:0.40rem
+  width:0.60rem
 }
 body::-webkit-scrollbar-track{
 background:black
 }
 body::-webkit-scrollbar-thumb{
-background:red;
+background:white;
 border-radius:15px
 }
 
@@ -114,6 +114,7 @@ flex-direction:column;
   border-radius: 19px;
   border: none;
   padding-inline: 20px;
+  cursor:pointer;
 }
 .channelimg{
   border-radius: 50%;
