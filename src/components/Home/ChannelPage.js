@@ -58,6 +58,7 @@ selector &&
 </div>
 {
 loginselector.login==true ? 
+
 <button className='subscribeButton'
  onClick={()=>{
   setsubscribestate(i=>!i)
@@ -73,7 +74,7 @@ await  console.log(check)
 //const p=     addDoc((check), ({subcriptions:'po poeski'}),{ merge: true})
 
 const p = await setDoc(doc(db,'users',check.id),{subscriptions:arrayUnion(selector) },{merge:true})
-  
+  console.log(p);
   }
   else { 
   
