@@ -7,17 +7,18 @@ import { addby } from '../../redux/reducers/index';
 import { useDispatch } from 'react-redux';
 import TimeAgo from 'react-timeago';
 import Sidebar from '../Bars/Sidebar'
-import { Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';  
 export default function SearchPage() {
-    const location=useLocation();
+ const location=useLocation();
 const [item,setitem]= useState();
 const [error,setError]=useState()
 const [clicked,setclicked]=useState();
 const dispatch= useDispatch()
 const selector= useSelector(state=>state.reducer.search);
-const apikey1='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+//const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+//const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+const apikey1='AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
+
  console.log(location.pathname.slice(13))
 useEffect(()=>{
     try {
@@ -27,7 +28,7 @@ useEffect(()=>{
 .then(res=>{
  setitem(res);
 console.log(selector.search)
-console.log(item);
+console.log(res);
 })
     
     } catch (error) {
@@ -57,7 +58,10 @@ console.log(item);
                       <img src={itemm.snippet.thumbnails.high.url} alt={itemm.snippet.title} className='thumbnails2' />
                       <div className= 'subsuggestedvids2'>
                       
+                      {/* <Link to={`/${itemm.id.videoId}`} onClick={}> */}
+                      
                       <h2 className='videoheadeer2'>{itemm.snippet.title}</h2>
+                     {/* </Link> */}
 
                     <TimeAgo date={itemm.snippet.publishedAt} locale="en" className='subcount3' />
                     <p className='subcount3'>{itemm.snippet.channelTitle}</p>

@@ -3,6 +3,7 @@ import React from 'react'
 import {AiFillHome} from 'react-icons/ai'
 import {BsPlay} from 'react-icons/bs'
 import {MdOutlineSubscriptions,MdOutlineVideoLibrary} from 'react-icons/md'
+import { Link } from 'react-router-dom'
  export default function () {
     const iconstyle={
         height:'20px',
@@ -12,10 +13,13 @@ color:'white'
 
   return (
     <div className='sidebar'>
+
+
 <div className='homediv'>
 <AiFillHome  style={iconstyle}/>
 Home
 </div>
+
 <div className='shortsdiv'>
 <BsPlay style={iconstyle}/>
 Shorts

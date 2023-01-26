@@ -17,15 +17,16 @@ export default function ChannelPage() {
   const [channelstate,setchannelstate]=useState()
   const [selectorbackup, setselectorbackup] = useState(selector);
   const [subscribestate,setsubscribestate]=useState(false)
-  const apikey1 = 'AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-  const apikey2 = 'AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+ // const apikey1 = 'AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+  //const apikey2 = 'AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+  const apikey1 = 'AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
 const dispatch=useDispatch()
 
 useEffect(() => {
-  firebasee()
-console.log(selector)
-
+  console.log(selector)
+  
   const channelId=selector.search.items[0].id
+  firebasee()
   fetch(`https://www.googleapis.com/youtube/v3/search?key=${apikey1}&channelId=${ channelId}&part=snippet,id&order=date&maxResults=20`)
     .then(response => response.json())
     .then(data => {setVideos(data.items)
@@ -55,14 +56,14 @@ console.log(selector)
         console.log(individual)
        await setchannelstate(individual)
        await console.log(channelstate)
-       if(channelstate==undefined){
-        setsubscribestate(true)
+       if(individual==undefined){
+        setsubscribestate(false)
        }
        else{
-        setsubscribestate(false)
+        setsubscribestate(true)
       }}
       else{
-        setsubscribestate(true)
+        setsubscribestate(false)
       }
        
           }

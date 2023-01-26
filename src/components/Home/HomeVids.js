@@ -17,8 +17,9 @@ const dispatch= useDispatch();
   const recommendedvidss =useSelector(state=>state.recommendedvids);
   const watch =useSelector(state=>state.watch) 
   const videos=[]
-  const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+  //const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+//const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+const apikey1 = 'AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
 
   useEffect(() => {
       async function getRecommendations() {
@@ -84,7 +85,7 @@ const title= item.snippet.title.slice(0,50)
             <Link   to={`/${item.id}`} state={{item:item}} style={{textDecorationLine:'none',margin:'5px'}} className='link'>
             <div className='cell' key={Math.random()} >
             <div className='crop'>
-    <img src={item.snippet.thumbnails.standard.url} className='thumbnail'/>
+    <img src={item.snippet.thumbnails.high.url} className='thumbnail'/>
     </div>
 
 <p className='vidname'>{title} {item.snippet.title.length>50 ?'...': null}</p>

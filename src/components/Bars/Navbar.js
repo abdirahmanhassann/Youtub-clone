@@ -117,10 +117,12 @@ Home
 <BsHandThumbsUp  style={iconstyle2}/>
 Shorts
 </div>
+<Link to='/SubsPage'>
 <div className='subscriptions2'>
 <MdOutlineSubscriptions style={iconstyle2}/>
 Subscriptions
 </div>
+</Link>
 <div className='library2'>
 <MdOutlineVideoLibrary style={iconstyle2}/>
 Library
