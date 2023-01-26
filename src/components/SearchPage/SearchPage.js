@@ -16,8 +16,8 @@ const [error,setError]=useState()
 const [clicked,setclicked]=useState();
 const dispatch= useDispatch()
 const selector= useSelector(state=>state.reducer.search);
-const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+const apikey1='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
  console.log(location.pathname.slice(13))
 useEffect(()=>{
     try {

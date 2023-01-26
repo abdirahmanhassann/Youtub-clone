@@ -6,30 +6,66 @@ import Sidebar from '../Bars/Sidebar';
 import './home.css'
 import { loginslicereducer } from '../../redux/reducers';
 import { Link } from 'react-router-dom';
-import { addDoc, arrayUnion, collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import { addDoc, arrayRemove, arrayUnion, collection, deleteField, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { async } from '@firebase/util';
 export default function ChannelPage() {
   const selector = useSelector((state) => state.reducer.channelonclick);
   const loginselector = useSelector((state)=>state.reducer.login);
   const emailselector= useSelector((state)=>state.reducer.email);
   const [videos, setVideos] = useState([]);
+  const [channelstate,setchannelstate]=useState()
   const [selectorbackup, setselectorbackup] = useState(selector);
-  const [subsribestate,setsubscribestate]=useState(false)
-  const apikey2 = 'AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-  const apikey1 = 'AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+  const [subscribestate,setsubscribestate]=useState(false)
+  const apikey1 = 'AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+  const apikey2 = 'AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
 const dispatch=useDispatch()
 
 useEffect(() => {
+  firebasee()
 console.log(selector)
+
   const channelId=selector.search.items[0].id
   fetch(`https://www.googleapis.com/youtube/v3/search?key=${apikey1}&channelId=${ channelId}&part=snippet,id&order=date&maxResults=20`)
     .then(response => response.json())
     .then(data => {setVideos(data.items)
+      //  if(loginselector==true){
+        //  return  firebasee();
+        //  }
+      })  
+      .catch(error => console.log(error));
+      
+    }, []); 
+    
 
-    })
-    .catch(error => console.log(error));
 
-}, []);
+      async function firebasee(){
+              
+             const  usersCollectionRef=await collection (db,'users')
+             const po= await getDocs(usersCollectionRef);
+           await  console.log(po)
+             const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+             const userr=userss.find((i)=>i.email==emailselector.email)
+           await  console.log(userr);
+           await console.log(selector.search.items[0].id)
+          await console.log(userr)
+           if(userr && userr.subscriptions.length>0)
+           {
+        const individual= await userr.subscriptions.find((i)=>i.search.items[0].id==selector.search.items[0].id)
+        console.log(individual)
+       await setchannelstate(individual)
+       await console.log(channelstate)
+       if(channelstate==undefined){
+        setsubscribestate(true)
+       }
+       else{
+        setsubscribestate(false)
+      }}
+      else{
+        setsubscribestate(true)
+      }
+       
+          }
 
 
 return (
@@ -59,44 +95,59 @@ selector &&
 {
 loginselector.login==true ? 
 
+ subscribestate==true ?
+
+<button className='subscribeButton'
+onClick={()=>{
+  async function unsub(){
+  const  usersCollectionRef= await collection (db,'users')
+  const po=  await getDocs(usersCollectionRef)
+  const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+  console.log(userss)
+  const check=await  userss.find(i=> i.email==emailselector.email)
+  console.log(check)
+ const f= await updateDoc(doc(db,'users',check.id),({subscriptions:arrayRemove(selector)}))
+ await console.log(f)
+ setchannelstate(null)
+ setsubscribestate(i=>!i)
+  }
+  unsub()
+}}
+>unsubscribe</button>
+:
 <button className='subscribeButton'
  onClick={()=>{
-  setsubscribestate(i=>!i)
-  async function database(res){
+  async function database(selector){
     const  usersCollectionRef=collection (db,'users')
    const po=  await getDocs(usersCollectionRef)
    const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
- await  console.log(userss.id);
- const check=await  userss.find(i=>i.email==emailselector.email)
+await  console.log(userss.id);
+const check=await  userss.find(i=> i.email==emailselector.email)
 await  console.log(check)
-   if ( await check) {
-    //JSON.parse(JSON.stringify(selector.search))
-//const p=     addDoc((check), ({subcriptions:'po poeski'}),{ merge: true})
+  if ( await check) {
 
 const p = await setDoc(doc(db,'users',check.id),{subscriptions:arrayUnion(selector) },{merge:true})
-  console.log(p);
-  }
-  else { 
-  
-    console.log('sub already exists',check.subcriptions, selector.search)
-  }
-} 
-  database(selector)
+ console.log(p);
+ await setchannelstate(p)
+ await console.log(channelstate)
+ await  setsubscribestate(i=>!i)
 
-    //dispatch(accountreducer(res))
+ }
+ else { 
  
+   console.log('sub already exists',check.subcriptions, selector.search)
+ }
+} 
+ database(selector)
 
-  .catch((err)=>{
-    console.log(err)
-  })
- }}
->{subsribestate? 'subscribe': 'unsubscribe'}</button>
+ .catch((err)=>{
+   console.log(err)
+ })
+}}
+> subscribe</button>
+
 :
 <button className='subscribeButton'
-//  onClick={()=>{
-//   if(loginselector.login==true){
-
-//   }}}
 >subscribe</button>
 
 }
