@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../Bars/Navbar';
 import { useLocation } from 'react-router';
 import  YouTube from 'react-youtube';
-import {AiOutlineLike} from 'react-icons/ai'
+import {AiFillLike, AiOutlineLike} from 'react-icons/ai'
 import {AiOutlineDislike} from 'react-icons/ai'
 import {RiShareForwardLine} from 'react-icons/ri'
 import {BsThreeDots} from 'react-icons/bs'
@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import { channelonclickreducer } from '../../redux/reducers/index';
 import { db } from '../../firebase';
 import { arrayRemove, arrayUnion, collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
+import { async } from '@firebase/util';
 export default function VideoPage(props) {
   const location=useLocation();
   const [channelData,setChannelData]=useState();
@@ -38,30 +39,33 @@ export default function VideoPage(props) {
   const emailselector= useSelector((state)=>state.reducer.email);
   const [channelstate,setchannelstate]=useState()
   const [subscribestate,setsubscribestate]=useState(false);
+  const [likestate,setlikestate]=useState(null);
    const refOne= useRef(null)
- // const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+  const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
   //const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
-  const apikey2 = 'AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
+  //const apikey2 = 'AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
 
   const dispatch=useDispatch();
   function onPlayerReady(event) {
     event.target.playVideo();
 
   }
-  async function firebasee(){
-              
+  async function firebasee(response){
+         
+                
+
     const  usersCollectionRef=await collection (db,'users')
     const po= await getDocs(usersCollectionRef);
   await  console.log(po)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
     const userr= await userss.find((i)=>i.email==emailselector.email)
   await  console.log(userr);
-  await console.log(channelData)
-  await console.log(channelData.items[0].id)
+  await console.log(response)
+  await console.log(response.items[0].id)
  await console.log(userr)
   if(userr && userr.subscriptions.length>0)
   {
-const individual= await userr.subscriptions.find((i)=>i.items[0].id==channelData.items[0].id)
+const individual= await userr.subscriptions.find((i)=>i.items[0].id==response.items[0].id)
 await console.log(individual)
 await setchannelstate(individual)
 await console.log(channelstate)
@@ -85,7 +89,7 @@ useEffect(()=>{
   .then(response => {
     setChannelData(response); 
     console.log(channelData)
-    firebasee();
+    firebasee(response);
   })
 fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${ item ?item.snippet.channelId : itemz.snippet.channelId}&key=${apikey2}`)
 .then(res => res.json())
@@ -190,6 +194,48 @@ return null;
   }
 }
 
+
+async function likediv(){
+  try{
+  const  usersCollectionRef=await collection (db,'users')
+ const po=  await getDocs(usersCollectionRef)
+ const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+await  console.log(userss.id);
+const check=await  userss.find(i=> i.email==emailselector.email)
+await  console.log(check)
+if ( await check) {
+
+const p = await setDoc(doc(db,'users',check.id),{likedvideos:arrayUnion(item) },{merge:true})
+console.log(p);
+setlikestate(true)
+}
+else { 
+
+ console.log('like already exists',check.subcriptions, channelData.search)
+}
+}
+catch(err){
+console.log(err)
+}
+}
+
+
+async function unlike(){
+  try{
+  const  usersCollectionRef= await collection (db,'users')
+  const po=  await getDocs(usersCollectionRef)
+  const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+  console.log(userss)
+  const check=await  userss.find(i=> i.email==emailselector.email)
+  console.log(check)
+ const f= await updateDoc(doc(db,'users',check.id),({likedvideos:arrayRemove(item)}))
+ await console.log(f)
+ setlikestate(false);
+  }
+  catch(err){
+    console.log(err);
+  }
+}
 return (
     <>
     <Navbar/>
@@ -341,8 +387,18 @@ const p = await setDoc(doc(db,'users',check.id),{subscriptions:arrayUnion(channe
   <button className='dots' onClick={()=>setdownloadbutton(true)}>
   <MdOutlineDownloadForOffline style={{height:'23px',width:'23px', color:'white',marginTop:'2px'}}/>
   </button>
-<div className='likediv'>
-  <button className='likebutton'> <AiOutlineLike style={{height:'23px',width:'23px', color:'white'}}/></button>
+<div className='likediv' >
+  <button className='likebutton'> 
+  { 
+  likestate==false ?
+  <AiOutlineLike style={{height:'23px',width:'23px', color:'white',cursor:'pointer'}}
+  onClick={()=>likediv()}/>
+  :
+  <AiFillLike style={{height:'23px',width:'23px', color:'white',cursor:'pointer'}}
+  onClick={()=>unlike()}/>
+
+}
+</button>
   <button className='dislikebutton'> <AiOutlineDislike style={{height:'23px',width:'23px', color:'white'}}/></button>
 </div>
 

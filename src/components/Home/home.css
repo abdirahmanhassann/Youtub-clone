@@ -66,6 +66,7 @@ flex-direction:column;
   .link{
     text-decoration-line: none;
     /* margin: 5px; */
+    color:inherit;
   }
   .flexdiv{
     display:flex;

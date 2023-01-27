@@ -223,7 +223,10 @@ display:none;
     cursor:pointer;
 }
 
-
+.link{
+    text-decoration-line: none;
+    color: inherit;
+}
   @media only screen and (max-width: 740px) {
     .mid {
       display:none

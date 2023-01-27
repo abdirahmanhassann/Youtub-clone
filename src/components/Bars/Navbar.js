@@ -120,7 +120,7 @@ Shorts
 {
 
 loginselector.login ==true ?  
-<Link to='/SubsPage'>
+<Link to='/SubsPage' className='link'>
 
 <div className='subscriptions2'>
 <MdOutlineSubscriptions style={iconstyle2}/>
@@ -128,7 +128,7 @@ Subscriptions
 </div>
 </Link>
 :
-<div className='subscriptions2'>
+<div className='subscriptions2' onClick={()=>alert('Please login to view subscriptions')}>
 <MdOutlineSubscriptions style={iconstyle2}/>
 Subscriptions
 </div>
