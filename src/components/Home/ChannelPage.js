@@ -52,7 +52,7 @@ useEffect(() => {
           await console.log(userr)
            if(userr && userr.subscriptions.length>0)
            {
-        const individual= await userr.subscriptions.find((i)=>i.search.items[0].id==selector.search.items[0].id)
+        const individual= await userr.subscriptions.find((i)=>i.items[0].id==selector.search.items[0].id)
         console.log(individual)
        await setchannelstate(individual)
        await console.log(channelstate)
@@ -107,7 +107,7 @@ onClick={()=>{
   console.log(userss)
   const check=await  userss.find(i=> i.email==emailselector.email)
   console.log(check)
- const f= await updateDoc(doc(db,'users',check.id),({subscriptions:arrayRemove(selector)}))
+ const f= await updateDoc(doc(db,'users',check.id),({subscriptions:arrayRemove(selector.search)}))
  await console.log(f)
  setchannelstate(null)
  setsubscribestate(i=>!i)
@@ -127,7 +127,7 @@ const check=await  userss.find(i=> i.email==emailselector.email)
 await  console.log(check)
   if ( await check) {
 
-const p = await setDoc(doc(db,'users',check.id),{subscriptions:arrayUnion(selector) },{merge:true})
+const p = await setDoc(doc(db,'users',check.id),{subscriptions:arrayUnion(selector.search) },{merge:true})
  console.log(p);
  await setchannelstate(p)
  await console.log(channelstate)

@@ -12,6 +12,7 @@
     color: white;
     font-family: 'Roboto', sans-serif;
     gap: 10px;
+    min-height: 100vh;
     padding-left: 6%;
 }
 .primary{
