@@ -118,7 +118,7 @@ else{
 
  useEffect(()=>{
 likechecker(item);
- },[])
+ },[bool])
 
   
 useEffect(()=>{
