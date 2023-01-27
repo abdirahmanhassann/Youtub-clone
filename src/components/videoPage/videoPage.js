@@ -40,7 +40,7 @@ export default function VideoPage(props) {
   const [channelstate,setchannelstate]=useState()
   const [subscribestate,setsubscribestate]=useState(false);
   const [likestate,setlikestate]=useState(null);
-  const [dislikestate,setdislikestate]=useState(null);
+  const [dislikestate,setdislikestate]=useState(false);
    const refOne= useRef(null)
   const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
   //const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
@@ -80,7 +80,45 @@ else{
 setsubscribestate(false)
 }
 
- }
+ } 
+
+  async function likechecker(){
+         
+                
+
+    const  usersCollectionRef=await collection (db,'users')
+    const po= await getDocs(usersCollectionRef);
+  await  console.log(po)
+    const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+    const userr= await userss.find((i)=>i.email==emailselector.email)
+  await  console.log(userr);
+const individual= await userr.likedvideos.find((i)=>i.id.videoId==item.id.videoId);
+
+const individual2= await userr.dislikedvideos.find((i)=>i.id.videoId==item.id.videoId)
+
+await console.log(individual);
+//await console.log(item);
+if(await individual==undefined){
+setlikestate(false)
+}
+else{
+setlikestate(true)
+setdislikestate(false);
+}
+
+if(await individual2==undefined){
+  setdislikestate(false)
+}
+else{
+  setdislikestate(true);
+  setlikestate(false);
+}
+}
+
+
+ useEffect(()=>{
+likechecker(item);
+ },[])
 
   
 useEffect(()=>{
@@ -90,7 +128,7 @@ useEffect(()=>{
   .then(response => {
     setChannelData(response); 
     console.log(channelData)
-    firebasee(response);
+    firebasee(response);    
   })
 fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${ item ?item.snippet.channelId : itemz.snippet.channelId}&key=${apikey2}`)
 .then(res => res.json())
@@ -477,9 +515,6 @@ onClick={()=>alert('you must login to like video')}/>
 :
 <AiOutlineDislike style={{height:'23px',width:'23px', color:'white',cursor:'pointer'}}
 onClick={()=>alert('you must login to dislike video')}/>
-
-
-
 
   }
   
