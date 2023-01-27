@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../Bars/Navbar';
 import { useLocation } from 'react-router';
 import  YouTube from 'react-youtube';
-import {AiFillLike, AiOutlineLike} from 'react-icons/ai'
+import {AiFillDislike, AiFillLike, AiOutlineLike} from 'react-icons/ai'
 import {AiOutlineDislike} from 'react-icons/ai'
 import {RiShareForwardLine} from 'react-icons/ri'
 import {BsThreeDots} from 'react-icons/bs'
@@ -40,6 +40,7 @@ export default function VideoPage(props) {
   const [channelstate,setchannelstate]=useState()
   const [subscribestate,setsubscribestate]=useState(false);
   const [likestate,setlikestate]=useState(null);
+  const [dislikestate,setdislikestate]=useState(null);
    const refOne= useRef(null)
   const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
   //const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
@@ -208,6 +209,19 @@ if ( await check) {
 const p = await setDoc(doc(db,'users',check.id),{likedvideos:arrayUnion(item) },{merge:true})
 console.log(p);
 setlikestate(true)
+if(dislikestate==true){
+  setdislikestate(false)
+  // const  usersCollectionRef= await collection (db,'users')
+  // const g=  await getDocs(usersCollectionRef)
+  // const  userss= await g.docs.map((i)=>{return{...i.data(),id:i.id}})
+  // console.log(userss)
+  // const check=await  userss.find(i=> i.email==emailselector.email)
+  console.log(check)
+ const f= await updateDoc(doc(db,'users',check.id),({dislikedvideos:arrayRemove(item)}))
+ await console.log(f)
+
+}
+
 }
 else { 
 
@@ -236,6 +250,52 @@ async function unlike(){
     console.log(err);
   }
 }
+
+async function dislike(){
+  try{
+  const  usersCollectionRef=await collection (db,'users')
+ const po=  await getDocs(usersCollectionRef)
+ const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+await  console.log(userss.id);
+const check=await  userss.find(i=> i.email==emailselector.email)
+await  console.log(check)
+if ( await check) {
+
+const p = await setDoc(doc(db,'users',check.id),{dislikedvideos:arrayUnion(item) },{merge:true})
+console.log(p);
+setdislikestate(true)
+if(likestate==true){
+  setlikestate(false)
+  const f= await updateDoc(doc(db,'users',check.id),({likedvideos:arrayRemove(item)}))
+}
+}
+else { 
+
+ console.log('like already exists',check.subcriptions, channelData.search)
+}
+}
+catch(err){
+console.log(err)
+}
+}
+
+async function undislike(){
+  try{
+  const  usersCollectionRef= await collection (db,'users')
+  const po=  await getDocs(usersCollectionRef)
+  const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+  console.log(userss)
+  const check=await  userss.find(i=> i.email==emailselector.email)
+  console.log(check)
+ const f= await updateDoc(doc(db,'users',check.id),({dislikedvideos:arrayRemove(item)}))
+ await console.log(f)
+ setdislikestate(false);
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+
 return (
     <>
     <Navbar/>
@@ -390,16 +450,40 @@ const p = await setDoc(doc(db,'users',check.id),{subscriptions:arrayUnion(channe
 <div className='likediv' >
   <button className='likebutton'> 
   { 
+  loginselector.login==true ? 
   likestate==false ?
   <AiOutlineLike style={{height:'23px',width:'23px', color:'white',cursor:'pointer'}}
   onClick={()=>likediv()}/>
   :
   <AiFillLike style={{height:'23px',width:'23px', color:'white',cursor:'pointer'}}
   onClick={()=>unlike()}/>
+:
+<AiOutlineLike style={{height:'23px',width:'23px', color:'white',cursor:'pointer'}}
+onClick={()=>alert('you must login to like video')}/>
 
 }
 </button>
-  <button className='dislikebutton'> <AiOutlineDislike style={{height:'23px',width:'23px', color:'white'}}/></button>
+  <button className='dislikebutton'> 
+  {
+    loginselector.login==true ?
+    dislikestate==false?
+    <AiOutlineDislike style={{height:'23px',width:'23px', color:'white',cursor:'pointer'}} 
+    onClick={()=>dislike()}
+    />
+    :
+    <AiFillDislike style={{height:'23px',width:'23px', color:'white',cursor:'pointer'}} 
+    onClick={()=>undislike()}
+    />
+:
+<AiOutlineDislike style={{height:'23px',width:'23px', color:'white',cursor:'pointer'}}
+onClick={()=>alert('you must login to dislike video')}/>
+
+
+
+
+  }
+  
+  </button>
 </div>
 
 <div className='share'>
