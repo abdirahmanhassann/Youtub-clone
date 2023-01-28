@@ -214,7 +214,7 @@ display:none;
     display:flex;
     flex-direction:row;
     gap:27px;
-    margin-right: -54px;
+    margin-right: -56px;
         cursor:pointer;
 }
 .library2{
@@ -222,6 +222,7 @@ display:none;
     flex-direction:row;
     gap:27px;
     cursor:pointer;
+    margin-right: -6px;
 }
 
 .link{

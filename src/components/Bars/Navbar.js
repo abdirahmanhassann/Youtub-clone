@@ -2,7 +2,7 @@ import React, { useState,useEffect, useRef } from 'react'
 import './Navbar.css';
 import {RxHamburgerMenu} from 'react-icons/rx'
 import {BsFillHandThumbsUpFill, BsHandThumbsUp, BsPlay, BsSearch} from 'react-icons/bs'
-import {AiOutlineVideoCameraAdd,AiFillCopyrightCircle, AiFillHome} from 'react-icons/ai'
+import {AiOutlineVideoCameraAdd,AiFillCopyrightCircle, AiFillHome, AiOutlineHistory} from 'react-icons/ai'
 import {BsBell,BsThreeDotsVertical} from 'react-icons/bs'
 import {BiUserCircle, BiArrowBack} from 'react-icons/bi'
 import ytlogowhite from '../../photos/ytlogowhite.png'
@@ -109,7 +109,7 @@ const iconstyle2={
         <div className='fullscreen'>
 
       <div className='drawer' ref={refOne} >
-        
+
         <Link to='/' className='link' >
      <div className='homediv2'>
 <AiFillHome  style={iconstyle2}/>
@@ -148,10 +148,21 @@ Subscriptions
 </div>
 
 }
+{
+  loginselector.login==true?
+  <Link to='/WatchHistory' className='link'>
 <div className='library2'>
-<MdOutlineVideoLibrary style={iconstyle2}/>
-Library
+<AiOutlineHistory style={iconstyle2}/>
+History
 </div>
+  </Link>
+: 
+<div className='library2' onClick={()=>alert('Please login to view watched videos')}>
+<AiOutlineHistory style={iconstyle2}/>
+History
+</div>
+
+}
 </div>
 <div className='restofscreen'>
 
