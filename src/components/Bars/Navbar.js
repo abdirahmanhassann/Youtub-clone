@@ -109,14 +109,28 @@ const iconstyle2={
         <div className='fullscreen'>
 
       <div className='drawer' ref={refOne} >
+        
+        <Link to='/' className='link' >
      <div className='homediv2'>
 <AiFillHome  style={iconstyle2}/>
 Home
 </div>
+     </Link>
+{
+  loginselector.login ==true ?  
+  <Link to='/LikedVids' className='link'>
 <div className='shortsdiv2'>
 <BsHandThumbsUp  style={iconstyle2}/>
-Shorts
+Liked videos
 </div>
+  </Link>
+:
+<div className='shortsdiv2' onClick={()=>alert('You must login to view Liked videos')}>
+<BsHandThumbsUp  style={iconstyle2}/>
+Liked videos
+</div>
+
+}
 {
 
 loginselector.login ==true ?  

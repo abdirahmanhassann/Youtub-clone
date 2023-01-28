@@ -6,6 +6,7 @@ import VideoPage from './components/videoPage/videoPage';
 import ChannelPage from './components/Home/ChannelPage';
 import {BrowserRouter as Router ,Route,Routes,Link}from 'react-router-dom'
 import SubsPage from './components/Home/SubsPage';
+import LikedVids from './components/Home/LikedVids';
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
    <Routes>
    <Route  path='/' element={<Home />}exact/>
    <Route  path='/SubsPage' element={<SubsPage />}exact/>
+   <Route  path='/LikedVids' element={<LikedVids />}exact/>
    <Route path="/:title" element={<VideoPage/>} />
    <Route path="/SearchPage/:name" element={<SearchPage/>} />
    <Route path="/ChannelPage/:namee" element={<ChannelPage/>} />

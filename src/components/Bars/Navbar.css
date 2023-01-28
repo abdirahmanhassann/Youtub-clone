@@ -208,6 +208,7 @@ display:none;
     flex-direction:row;
     gap:27px;
     cursor:pointer;
+    margin-right: -49px;
 }
 .subscriptions2{
     display:flex;

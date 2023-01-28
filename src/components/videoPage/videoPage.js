@@ -42,8 +42,8 @@ export default function VideoPage(props) {
   const [likestate,setlikestate]=useState(null);
   const [dislikestate,setdislikestate]=useState(false);
    const refOne= useRef(null)
-  const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-  //const apikey1='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+  //const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
+  const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
   //const apikey2 = 'AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
 
   const dispatch=useDispatch();
@@ -92,7 +92,7 @@ setsubscribestate(false)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
     const userr= await userss.find((i)=>i.email==emailselector.email)
   await  console.log(userr);
-const individual= await userr.likedvideos.find((i)=>i.id.videoId==item.id.videoId);
+const individual= await userr.likedvideos.find((i)=>i.id.videoId== item.id.videoId);
 
 const individual2= await userr.dislikedvideos.find((i)=>i.id.videoId==item.id.videoId)
 
