@@ -161,4 +161,54 @@ padding-bottom: 35px;
     width: 272px;
     border-radius: 14px;
 }
+.body{
+  width:100%;
+}
+.root{
+  width:100%;
+}
+@media only screen and (max-width: 700px) {
+  .root {
+    width: 108%;
+}
+.largestdiv{
+  width:100%
+}
+.infopageflex2{
+      padding-left: 0px; 
+      align-items: flex-start;
+}
+.thumbnaillikedvids {
+  height: 107px;
+  /* width: auto; */
+  border-radius: 14px;
+}
+.channeltitlelarge {
+  font-size: 13px;
+  font-weight: 600;
+}
+.subcountlarge {
+  font-size: 12px;
+  color: #a5a5a5;
+  margin-top: -6px;
+}
+.infopageflex{
+  padding-left: 0%
+}
+.subspageflex{
+  margin-left: 6px;
+  width: 90%;
 
+}
+.griddiv{
+  row-gap: 316px;
+  margin-left:0px;
+}
+.thumbnail {
+  object-fit: cover;
+  height: auto;
+  width: 100%;
+  width: fit-content;
+  /* border-radius: 14px; */
+}
+}

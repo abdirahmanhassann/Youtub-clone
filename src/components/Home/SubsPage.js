@@ -38,6 +38,7 @@ useEffect(()=>{
     <Sidebar/>
 <div className='subspageflex'>
     {
+        loginselector.login==true ?
         channell ?
         channell.subscriptions.length>0?
     channell.subscriptions.map((i)=>{
@@ -67,8 +68,8 @@ to={`../ChannelPage/:${i.items[0].snippet.title}`} className='link'>
 <p className='channeltitlelarge'>No subscriptions</p>
 :
 <p className='channeltitlelarge'>loading</p>
-// :
-// <p className='channeltitlelarge'>Please login to view subscriptions</p>
+:
+<p className='channeltitlelarge'>Please login to view subscriptions</p>
 
 }
 </div>

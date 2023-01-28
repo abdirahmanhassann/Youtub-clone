@@ -18,8 +18,8 @@ export default function ChannelPage() {
   const [selectorbackup, setselectorbackup] = useState(selector);
   const [subscribestate,setsubscribestate]=useState(false)
  /// const apikey1 = 'AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
-  const apikey1 = 'AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
- // const apikey1 = 'AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
+  //const apikey1 = 'AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
+ const apikey1 = 'AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
 const dispatch=useDispatch()
 
 useEffect(() => {

@@ -423,15 +423,16 @@ return (
 <YouTube
   videoId={ item ? item.id.videoId : itemz.id}
   opts={{
-    height: '400',
-    width: '700',
     rel: 0,
     modestbranding: 1 
   }}
   //onReady={onPlayerReady}
   onStateChange={onStateChange}
   // onStateChange={onPlayerStateChange}
-  style={{marginTop:'80px'}}
+  className='video-container'
+//   style={{marginTop:'80px',    height: '400',
+//   width: '700',
+// }}
 />
 {
 channelData && channelstats &&videostats &&comments ?
@@ -513,7 +514,7 @@ const p = await setDoc(doc(db,'users',check.id),{subscriptions:arrayUnion(channe
 > subscribe</button>
 
 :
-<button className='subscribeButton'
+<button className='subscribeButton' onClick={()=>alert ('Please login to subscribe')}
 >subscribe</button>
 
 }
