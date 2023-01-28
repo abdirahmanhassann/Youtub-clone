@@ -42,15 +42,44 @@ export default function VideoPage(props) {
   const [likestate,setlikestate]=useState(null);
   const [dislikestate,setdislikestate]=useState(false);
    const refOne= useRef(null)
+   const [videoState,setVideoState]=useState()
+   const [videoBoolean,setvideoBoolean]=useState(false);
   //const apikey2='AIzaSyC4_fXH7BlVagbK7YjkB9Ne3tYGeK6jdNI';
   const apikey2='AIzaSyCI5cZlzuALmkPL41zHTzAhOCFdITMDP_E';
   //const apikey2 = 'AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
 
   const dispatch=useDispatch();
-  function onPlayerReady(event) {
-    event.target.playVideo();
 
+
+
+  function onStateChange(event){
+if (videoState < 5)
+     {
+      setVideoState(event.target.playerInfo.mediaReferenceTime);
+    console.log(videoState)
+     }
+else{
+  setVideoState(5)
+}
+}
+
+useEffect(()=>{
+  async function videoplayer(){
+  const  usersCollectionRef=await collection (db,'users')
+  const po=  await getDocs(usersCollectionRef);
+ await console.log(po)
+  const  userss=await  po.docs.map((i)=>{return{...i.data(),id:i.id}})
+  const userr=await userss.find((i)=>i.email==emailselector.email)
+ await  console.log(userr);
+await console.log(userr)
+if ( await loginselector.login==true) {
+const p =await setDoc(doc(db,'users',userr.id),{watchHistory:arrayUnion(item) },{merge:true})
+console.log(p);
+}
   }
+  videoplayer()
+},[videoState===5])
+
   async function firebasee(response){
          
                 
@@ -82,29 +111,33 @@ setsubscribestate(false)
 
  } 
 
-  async function likechecker(){
+  async function likechecker(item){
          
                 
-
     const  usersCollectionRef=await collection (db,'users')
     const po= await getDocs(usersCollectionRef);
-  await  console.log(po)
+    await  console.log(po)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
     const userr= await userss.find((i)=>i.email==emailselector.email)
-  await  console.log(userr);
-const individual= await userr.likedvideos.find((i)=>i.id.videoId== item.id.videoId);
+    await  console.log(userr);
+    try{
+     const individual= await userr.likedvideos.find((i)=>i.id.videoId== item.id.videoId);
+      if(await individual===undefined ){
+      setlikestate(false)
+      }
+      else{
+      setlikestate(true)
+      setdislikestate(false);
+      }
+    }
+catch(err){
+  if(err){ setlikestate(false);}
+}
 
+try{
 const individual2= await userr.dislikedvideos.find((i)=>i.id.videoId==item.id.videoId)
 
-await console.log(individual);
 //await console.log(item);
-if(await individual==undefined){
-setlikestate(false)
-}
-else{
-setlikestate(true)
-setdislikestate(false);
-}
 
 if(await individual2==undefined){
   setdislikestate(false)
@@ -112,6 +145,9 @@ if(await individual2==undefined){
 else{
   setdislikestate(true);
   setlikestate(false);
+}}
+catch(err){
+  if(err){setdislikestate(false)}
 }
 }
 
@@ -392,7 +428,8 @@ return (
     rel: 0,
     modestbranding: 1 
   }}
-  onReady={onPlayerReady}
+  //onReady={onPlayerReady}
+  onStateChange={onStateChange}
   // onStateChange={onPlayerStateChange}
   style={{marginTop:'80px'}}
 />
