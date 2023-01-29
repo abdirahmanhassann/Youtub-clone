@@ -50,6 +50,16 @@ export default function VideoPage(props) {
 
   const dispatch=useDispatch();
 
+  useEffect(()=>{
+function check(){
+if(loginselector.login===false){
+  setlikestate(false);
+  setdislikestate(false);
+  setsubscribestate(false);
+}
+}
+check();
+  },[loginselector.login])
 
 
   function onStateChange(event){

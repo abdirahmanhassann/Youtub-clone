@@ -22,9 +22,19 @@ export default function ChannelPage() {
  const apikey1 = 'AIzaSyCl1-mrm4K1XDfs3IGQOkYmyyzSTh3FQas';
 const dispatch=useDispatch()
 
+useEffect(()=>{
+  function check(){
+  if(loginselector.login===false){
+    setsubscribestate(false);
+  }
+  }
+  check();
+    },[loginselector.login])
+  
+
 useEffect(() => {
   console.log(selector)
-  
+
   const channelId=selector.search.items[0].id
   firebasee()
   fetch(`https://www.googleapis.com/youtube/v3/search?key=${apikey1}&channelId=${ channelId}&part=snippet,id&order=date&maxResults=20`)
