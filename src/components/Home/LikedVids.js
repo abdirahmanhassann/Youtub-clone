@@ -6,39 +6,40 @@ import { db } from '../../firebase';
 import { channelonclickreducer } from '../../redux/reducers';
 import Navbar from '../Bars/Navbar'
 import Sidebar from '../Bars/Sidebar'
-export default function ()
+
+export default function LikedVids ()
 {
 const emailselector= useSelector((state)=>state.reducer.email);
 const loginselector=useSelector((state)=>state.reducer.login);
 const [channell,setchannell]=useState()
 const dispatch = useDispatch()
-let userr;
 
-
-useEffect(()=>{
-    function check(){
-    if(loginselector.login===false){
-      setchannell(false);
-    }
-    }
-    check();
-      },[loginselector.login])
-
+// useEffect(()=>{
+//     function check(){
+//     if(loginselector.login===false){
+//       setchannell(false);
+//     }
+//     }
+//     check();
+//       },[loginselector.login])
+    
     async function firebasee(){
-        
+        try{
         const  usersCollectionRef=await collection (db,'users')
         const po= await getDocs(usersCollectionRef);
         const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-         userr=await userss.find((i)=>i.email==emailselector.email)
-        await console.log(userr.subscriptions)
+        const userr=await userss.find((i)=>i.email==emailselector.email)
+        await console.log(userr.likedvideos)
          setchannell(userr);
         console.log(channell)
-    
+        }
+        catch(err){
+            console.log(err)
+        }
     }
    
 useEffect(()=>{
     firebasee()
-    .then(console.log(channell))
 },[])
 
   return (
@@ -48,25 +49,25 @@ useEffect(()=>{
     <Sidebar/>
 <div className='subspageflex'>
     {
-        loginselector.login==true ?
+        loginselector.login ==true?
+
         channell ?
-        channell.subscriptions.length>0?
-    channell.subscriptions.map((i)=>{
+        channell.likedvideos?
+    channell.likedvideos.map((i)=>{
 
         console.log(i);
 return(
 
 <div className='infopageflex'>
 <div className='infopageflex2'>
-    <img src={i.items[0].snippet.thumbnails.default.url} className='channelimg'/>
+    <img src={i.snippet.thumbnails.medium.url} className='thumbnaillikedvids'/>
 
-    <Link onClick={()=>{dispatch(channelonclickreducer(i))}}
-to={`../ChannelPage/:${i.items[0].snippet.title}`} className='link'>
+    <Link to={`/${i.id.videoId}`} state={{itemm:i}} className='link'>
     <div className='channeltitlesubcount'>
-  <p className='channeltitlelarge'>{ i.items[0].snippet.title}</p>
-  <p className='subcountlarge'>{i.items[0].snippet.customUrl}</p>
-  <p className='subcountlarge'>{ i.items[0].snippet.description.length>100 ?  i.items[0].snippet.description.slice(0,100)+'...'
-:i.items[0].snippet.description  
+  <p className='channeltitlelarge'>{ i.snippet.title}</p>
+  <p className='subcountlarge'>{i.snippet.channelTitle}</p>
+  <p className='subcountlarge'>{ i.snippet.description.length>100 ?  i.snippet.description.slice(0,100)+'...'
+:i.snippet.description  
 }</p>
 </div>
 </Link>
@@ -75,11 +76,11 @@ to={`../ChannelPage/:${i.items[0].snippet.title}`} className='link'>
 )
     })
     :
-<p className='channeltitlelarge'>No subscriptions</p>
+<p className='channeltitlelarge'>No Liked Videos</p>
 :
 <p className='channeltitlelarge'>loading</p>
 :
-<p className='channeltitlelarge'>Please login to view subscriptions</p>
+<p className='channeltitlelarge'>Please login to view Liked videos</p>
 
 }
 </div>

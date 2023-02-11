@@ -92,6 +92,8 @@ flex-direction:column;
   .channeltitlesubcount{
     display:flex;
     flex-direction:column;
+    cursor:pointer;
+    width: 500px;
   }
 
   .channeltitlelarge{
@@ -167,7 +169,14 @@ padding-bottom: 35px;
 .root{
   width:100%;
 }
-@media only screen and (max-width: 700px) {
+
+@media only screen and (max-width: 1250px) {
+.channeltitlesubcount{
+  width:auto;
+} 
+
+}
+@media only screen and (max-width: 850px) {
   .root {
     width: 108%;
 }
