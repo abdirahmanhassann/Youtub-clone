@@ -65,12 +65,10 @@ check();
   function onStateChange(event){
 if (videoState < 5)
      {
-      setVideoState(event.target.playerInfo.mediaReferenceTime);
-    console.log(videoState)
+    return setVideoState(event.target.playerInfo.mediaReferenceTime);
      }
-else{
+
   setVideoState(5)
-}
 }
 
 useEffect(()=>{
@@ -196,12 +194,12 @@ fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId
   console.log(r)
 })
 
-fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${item ?item.id.videoId : itemz.id}&type=video&maxResults=20&key=${apikey2}`)
-  .then((r) => r.json())
-  .then((r) =>{ 
-    setSuggestedVideos(r)
-  console.log(r)
-  });
+// fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${item ?item.id.videoId : itemz.id}&type=video&maxResults=20&key=${apikey2}`)
+//   .then((r) => r.json())
+//   .then((r) =>{ 
+//     setSuggestedVideos(r)
+//   console.log(r)
+//   });
 
 },[bool]);
 
@@ -607,7 +605,7 @@ share</div>
 }  
 
 </div>
-<div className='secondary'>
+{/* <div className='secondary'>
 {
 suggestedVideos&&
 suggestedVideos.items.map((video) => (
@@ -631,7 +629,7 @@ window.scrollTo(0, 0);
         </div>
       ))}
 
-</div>
+</div> */}
     </div>
 <div className='commentsdiv'>
 <div className='makeAComment1'>
